@@ -1,0 +1,100 @@
+<main>
+  <div class="container">
+    <div class="row justify-content-center  my-5 mx-2">
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-sm-12 col-md-8">
+            <div class="row flex-column">
+              <div class="col mb-2">
+                <h2 class="h4 text-center text-secondary cartLeft p-3">你的購物車</h2>
+              </div>
+              <div class="col mb-2">
+                <div class="row align-items-center justify-content-end">
+                  <div class="col-7 col-md-3 cartBackground">
+                    <!-- <img src="https://bit.ly/2R5tqwD" class="cartImg my-2"> -->
+                  </div>
+                  <div class="col-5 col-md-6">
+                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
+                      <div class="col">
+                        <div class="row flex-column ps-3">
+                          <div class="col"><span>抹茶馬卡龍</span></div>
+                          <div class="col"><span>N$450</span></div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="input-group px-2">
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon1">-</button>
+                          <input type="text" class="form-control text-center" placeholder="2">
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon1">+</button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-2 px-1 fw-bold cartItemHeight">NT$900</div>
+                  <div class="col-1 px-1 cartItemHeight">
+                    <!-- <i class="fa-solid fa-trash"></i> -->
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                  </div>
+                </div>
+              </div>
+              <div class="col mb-2">
+                <div class="row align-items-center justify-content-end">
+                  <div class="col-7 col-md-3 cartBackground">
+                    <!-- <img src="https://bit.ly/2R5tqwD" class="cartImg my-2"> -->
+                  </div>
+                  <div class="col-5 col-md-6">
+                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
+                      <div class="col">
+                        <div class="row flex-column ps-3">
+                          <div class="col"><span>抹茶馬卡龍</span></div>
+                          <div class="col"><span>N$450</span></div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="input-group px-2">
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon1">-</button>
+                          <input type="text" class="form-control text-center" placeholder="2">
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon1">+</button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-2 px-1 fw-bold  cartItemHeight">NT$900</div>
+                  <div class="col-1 px-1  cartItemHeight">
+                    <!-- <i class="fa-solid fa-trash"></i> -->
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="cartRigh-order p-0 col-sm-12 col-md-4 cartRight d-flex flex-column justify-content-between">
+            <div class="text-white text-center px-4 pt-4">
+              <div class="h4">訂單摘要</div>
+              <hr class="text-white opacity-100 d-none d-md-block">
+            </div>
+            <div class="px-4 text-white d-flex justify-content-between">
+              <span>小計</span>
+              <span>NT$2700</span>
+            </div>
+            <div class="px-4 text-white d-flex justify-content-between">
+              <span>運費</span>
+              <span>NT$300</span>
+            </div>
+            <div class="px-4 text-white d-flex justify-content-between h5">
+              <span>總計</span>
+              <span>NT$3000</span>
+            </div>
+            <a routerLink="/checkout" type="submit" class="py-3 btn btn-warning text-secondary w-100 rounded-0">結帳</a>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

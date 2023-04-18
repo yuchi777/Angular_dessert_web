@@ -1,0 +1,132 @@
+<main>
+  <div class="container">
+    <div class="row justify-content-center  my-5 mx-2">
+      <div class="col-md-10">
+        <div class="row">
+          <div class="me-4 col-md-12 col-lg-7 checkoutLeft p-0 d-flex flex-column justify-content-between">
+            <div class="row justify-content-center p-4 ">
+              <div class="col-6 align-self-center">
+                <span class="h1 text-white">運送</span>
+              </div>
+              <div class="col-6 align-self-center">
+                <div class="process-steps w-100">
+                  <div class="step-circle"><fa-icon [icon]="faCheck" class="text-white"></fa-icon></div>
+                  <div class="step-circle active"></div>
+                  <div class="step-circle"></div>
+                </div>
+              </div>
+
+            </div>
+
+            <form class="row g-3 mx-2 mb-3">
+              <div class="col-12">
+                <label for="cardnumber" class="form-label text-white">信用卡號</label>
+                <input type="text" class="form-control checkoutInput" id="cardnumber" placeholder="1232-1231-1231-1231">
+              </div>
+              <div class="col-6 col-md-6">
+                <label for="lastname" class="form-label text-white">持卡人姓氏</label>
+                <input type="text" class="form-control checkoutInput" id="lastname" placeholder="王">
+              </div>
+              <div class="col-6 col-md-6">
+                <label for="firstname" class="form-label text-white">名子</label>
+                <input type="text" class="form-control checkoutInput" id="firstname" placeholder="小名">
+              </div>
+
+              <div class="col-6 col-md-6">
+                <label for="month" class="form-label text-white">有效期限</label>
+                <input type="text" class="form-control checkoutInput" id="month" placeholder="月">
+              </div>
+              <div class="col-6 col-md-6">
+                <label for="year" class="form-label text-white">有效期限</label>
+                <input type="text" class="form-control checkoutInput" id="year" placeholder="年">
+              </div>
+              <div class="col-12">
+                <label for="exp" class="form-label text-white">有效期限</label>
+                <input type="text" class="form-control checkoutInput" id="exp" placeholder="00/00">
+              </div>
+            </form>
+
+
+            <a routerLink="/checkout2" type="submit" class="py-3 btn btn-warning text-secondary w-100 rounded-0">下一步</a>
+
+
+
+          </div>
+          <div class="col-md-12 col-lg-4  checkoutRight d-none d-lg-flex justify-content-center">
+            <div class="row flex-column w-100 p-0">
+
+              <div class="col d-flex flex-column">
+                <div class=" text-center py-2 mb-2 checkoutRight-color">
+                  <div class="h4 my-auto">訂單摘要</div>
+                </div>
+                <div class="d-flex justify-content-between lh-lg">
+                  <span>小計</span>
+                  <span>NT$2700</span>
+                </div>
+                <div class="d-flex justify-content-between lh-lg">
+                  <span>運費</span>
+                  <span>NT$300</span>
+                </div>
+                <div class="d-flex justify-content-between h5 lh-lg">
+                  <span>總計</span>
+                  <span>NT$3000</span>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="text-center py-2 mb-2 checkoutRight-color">
+                  <div class="h4 my-auto">購物清單</div>
+                </div>
+                <div class="py-1 mb-2 row align-items-center justify-content-between">
+                  <div class="col-8 col-md-3 checkoutBkground"></div>
+                  <div class="col-4 col-md-6">
+                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
+                      <div class="col">
+                        <div class="row flex-column ">
+                          <div class="col h5"><span>抹茶馬卡龍</span></div>
+                          <div class="col h5"><span>(2)</span></div>
+                          <div class="col"><span>N$450</span></div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="py-1 mb-2 row align-items-center justify-content-between">
+                  <div class="col-8 col-md-3 checkoutBkground"></div>
+                  <div class="col-4 col-md-6">
+                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
+                      <div class="col">
+                        <div class="row flex-column ">
+                          <div class="col h5"><span>抹茶馬卡龍</span></div>
+                          <div class="col h5"><span>(2)</span></div>
+                          <div class="col"><span>N$450</span></div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="py-1 mb-2 row align-items-center justify-content-between">
+                  <div class="col-8 col-md-3 checkoutBkground"></div>
+                  <div class="col-4 col-md-6">
+                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
+                      <div class="col">
+                        <div class="row flex-column ">
+                          <div class="col h5"><span>抹茶馬卡龍</span></div>
+                          <div class="col h5"><span>(2)</span></div>
+                          <div class="col"><span>N$450</span></div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

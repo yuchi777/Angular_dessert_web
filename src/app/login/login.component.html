@@ -1,0 +1,57 @@
+<main>
+  <div class="container">
+    <div class="row justify-content-center  my-5 mx-2">
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 loginLeft p-0 d-flex flex-column justify-content-between">
+            <div class="h1 text-white text-center p-4">會員登入</div>
+            <div class="d-md-none d-block logoLeft p-4 rounded-0">
+              <div class="container">
+                <ul class="list-group list-group-horizontal">
+                  <a href="#" class="list-group-item list-group-item-action text-center"><img class="img-fluid h-100"
+                      src="../assets/img/ic-facebook-logotype.svg"></a>
+                  <a href="#" class="list-group-item list-group-item-action text-center"><img class="img-fluid h-100"
+                      src="../assets/img/ic-google.svg"></a>
+                  <a href="#" class="list-group-item list-group-item-action text-center"><img class="img-fluid h-100"
+                      src="../assets/img/ic-yahoo.svg"></a>
+                </ul>
+              </div>
+            </div>
+            <div class="logoinInput mx-4 mt-3 ">
+              <label for="email">
+                <!-- <i class="fa-solid fa-user p-3"></i> -->
+                <fa-icon [icon]="faUser" class="p-3"></fa-icon>
+              </label>
+              <input class="bg-transparent border-0" type="text" id="email" placeholder="電子信箱/手機號碼">
+            </div>
+            <div class="logoinInput mx-4 mt-2 ">
+              <label for="email">
+                <!-- <i class="fa-solid fa-key p-3"></i> -->
+                <fa-icon [icon]="faKey" class="p-3"></fa-icon>
+              </label>
+              <input class="bg-transparent border-0" type="text" id="email" placeholder="請輸入使用者密碼">
+            </div>
+            <div class="logoinCheckbox mx-4 mt-2 mb-3">
+              <input type="checkbox" id="remember">
+              <label for="remember" class="text-white mx-1">記住我</label>
+            </div>
+            <button type="submit" class="py-3 btn btn-warning text-secondary w-100 rounded-0">登入帳號</button>
+
+          </div>
+          <div
+            class="col-sm-12 col-md-6 align-self-center loginRight d-none d-md-flex flex-column justify-content-center">
+            <h2 class="h4 text-center text-secondary m-4 d-none d-md-block">—— 連結社群帳號 ——</h2>
+            <ul class="list-group">
+              <a href="#" class=" list-group-item list-group-item-action text-center my-2 px-3"><img class=""
+                  src="../assets/img/ic-facebook-logotype.svg" width="100"></a>
+              <a href="#" class=" list-group-item list-group-item-action text-center my-2 px-3"><img class=""
+                  src="../assets/img/ic-google.svg" width="100"></a>
+              <a href="#" class=" list-group-item list-group-item-action text-center my-2 px-3"><img class=""
+                  src="../assets/img/ic-yahoo.svg" width="100"></a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

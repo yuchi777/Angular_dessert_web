@@ -1,0 +1,119 @@
+<main>
+  <div class="container">
+    <div class="row justify-content-center  my-5 mx-2">
+      <div class="col-md-10">
+        <div class="row">
+          <div class="me-4 col-md-12 col-lg-7 checkoutLeft-2 p-0 d-flex flex-column justify-content-between">
+            <div class="row justify-content-center p-4 ">
+              <div class="col-6 align-self-center">
+                <span class="h1 text-white">發票</span>
+              </div>
+              <div class="col-6 align-self-center">
+                <div class="process-steps step-circle.completed w-100">
+                  <div class="step-circle"><fa-icon [icon]="faCheck" class="text-white"></fa-icon></div>
+                  <div class="step-circle"><fa-icon [icon]="faCheck" class="text-white"></fa-icon></div>
+                  <div class="step-circle active"></div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row g-3 mx-2 px-2">
+              <button
+                class="rounded-0 col form-control checkoutInput d-flex align-items-center justify-content-center">電子發票</button>
+              <button
+                class="rounded-0 col form-control checkoutInput-2 d-flex align-items-center justify-content-center">郵寄發票</button>
+            </div>
+
+            <form class="row g-3 mx-2">
+              <div class="col-12">
+                <label for="phone" class="form-label text-white">電子郵件信箱</label>
+                <input type="text" class="form-control checkoutInput" id="phone" placeholder="example@email.com">
+              </div>
+              <div class="col-12">
+                <label for="address" class="form-label text-white">統一編號(選填)</label>
+                <input type="text" class="form-control checkoutInput" id="address" placeholder="12345678">
+              </div>
+            </form>
+
+
+            <a routerLink="/success" type="submit" class="py-3 btn btn-warning text-secondary w-100 rounded-0">下一步</a>
+
+
+
+          </div>
+          <div class="col-md-12 col-lg-4  checkoutRight d-none d-lg-flex justify-content-center">
+            <div class="row flex-column w-100 p-0">
+
+              <div class="col d-flex flex-column">
+                <div class=" text-center py-2 mb-2 checkoutRight-color">
+                  <div class="h4 my-auto">訂單摘要</div>
+                </div>
+                <div class="d-flex justify-content-between lh-lg">
+                  <span>小計</span>
+                  <span>NT$2700</span>
+                </div>
+                <div class="d-flex justify-content-between lh-lg">
+                  <span>運費</span>
+                  <span>NT$300</span>
+                </div>
+                <div class="d-flex justify-content-between h5 lh-lg">
+                  <span>總計</span>
+                  <span>NT$3000</span>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="text-center py-2 mb-2 checkoutRight-color">
+                  <div class="h4 my-auto">購物清單</div>
+                </div>
+                <div class="py-1 mb-2 row align-items-center justify-content-between">
+                  <div class="col-8 col-md-3 checkoutBkground"></div>
+                  <div class="col-4 col-md-6">
+                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
+                      <div class="col">
+                        <div class="row flex-column ">
+                          <div class="col h5"><span>抹茶馬卡龍</span></div>
+                          <div class="col h5"><span>(2)</span></div>
+                          <div class="col"><span>N$450</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="py-1 mb-2 row align-items-center justify-content-between">
+                  <div class="col-8 col-md-3 checkoutBkground"></div>
+                  <div class="col-4 col-md-6">
+                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
+                      <div class="col">
+                        <div class="row flex-column ">
+                          <div class="col h5"><span>抹茶馬卡龍</span></div>
+                          <div class="col h5"><span>(2)</span></div>
+                          <div class="col"><span>N$450</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="py-1 mb-2 row align-items-center justify-content-between">
+                  <div class="col-8 col-md-3 checkoutBkground"></div>
+                  <div class="col-4 col-md-6">
+                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
+                      <div class="col">
+                        <div class="row flex-column ">
+                          <div class="col h5"><span>抹茶馬卡龍</span></div>
+                          <div class="col h5"><span>(2)</span></div>
+                          <div class="col"><span>N$450</span></div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
