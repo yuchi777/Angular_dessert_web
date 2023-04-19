@@ -108,9 +108,17 @@ export class DataService {
     ]
   }
 
-  run() {
-    console.log('DataService');
+  getData() {
+    // return this.http.get<any>('https://api.github.com/search/users?q=mike')
+    return this.http.post('http://presale.money-link.com.tw/sweetApi/getProductsByTypeId', { "typeId": 2 })
+    // .pipe(
+    //   map((re) => {
+
+    //   })
+    // )
   }
+
+
 
   // presale.money-link.com.tw
   // 'http://presale.money-link.com.tw/sweetApi/getProductsByTypeId',{ "typeId" : 2}
@@ -123,14 +131,10 @@ export class DataService {
   }
 
 
-  getData() {
-    // return this.http.get<any>('https://api.github.com/search/users?q=mike')
-    return this.http.post('http://presale.money-link.com.tw/sweetApi/getProductsByTypeId', { "typeId": 2 })
-      // .pipe(
-      //   map((re) => {
-
-      //   })
-      // )
+  getAllProduct() {
+    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getAllProduct', {
+      "token": "eyJhbGciOiJIUzUxMiJ9.eyJ1aWQiOjksInN1YiI6ImFkbWluIiwicGVybWlzc2lvbiI6MiwiZXhwIjoxNjgxOTAyNTc5LCJpYXQiOjE2ODE4ODQ1Nzl9.7BUAC1zJcZ-g6ieYrepAQ9fAhKTajSpMuQJiXYH3SUdGIF2jWWr9D2WCKxlnyQw6rNDsAIbudYmxuwWxMhTGyg"
+    })
   }
 
 

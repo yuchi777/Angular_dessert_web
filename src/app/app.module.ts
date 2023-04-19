@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //Router
 // import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
@@ -19,7 +19,7 @@ import { Checkout1Component } from './pages/checkout1/checkout1.component';
 import { Checkout2Component } from './pages/checkout2/checkout2.component';
 import { SuccessComponent } from './pages/success/success.component';
 import { DataService } from './data.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -46,7 +46,7 @@ const routes: Routes = [
     CheckoutComponent,
     Checkout1Component,
     Checkout2Component,
-    SuccessComponent
+    SuccessComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +54,8 @@ const routes: Routes = [
     // AppRoutingModule
     RouterModule.forRoot(routes),
     FormsModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
     NgbModule,
     HttpClientModule
   ],

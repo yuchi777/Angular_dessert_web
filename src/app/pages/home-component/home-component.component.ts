@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { DataService } from '../../data.service';
 
@@ -21,15 +21,14 @@ export class HomeComponentComponent {
 
 
   ngOnInit() {
-    this.datasvc.run();
-    // console.log('data',this.datasvc.data);
-    this.datasvc.getData().subscribe((result) => {
-      // console.log('http_re_objectKey', Object.keys(result));
-      // console.log('http_re_values', Object.values(result)[2]);
-      console.log('http_re_typeof', typeof(result));
-      console.log('http_re', result);
 
-    })
+    // this.datasvc.getData().subscribe((result) => {
+    //   console.log('http_re_objectKey', Object.keys(result));
+    //   console.log('http_re_values', Object.values(result)[2]);
+    //   console.log('http_re_typeof', typeof(result));
+    //   console.log('http_re', result);
+
+    // })
 
     this.datasvc.getProductsByTypeId(1).subscribe((data)=>{
       console.log('getApiData',data.data);
