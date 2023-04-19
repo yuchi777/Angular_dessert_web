@@ -9,15 +9,19 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 // Component
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { HomeComponentComponent } from './home-component/home-component.component';
+import { HomeComponentComponent } from './pages/home-component/home-component.component';
 import { FooterComponent } from './footer/footer.component';
-import { DessertComponent } from './dessert/dessert.component';
-import { LoginComponent } from './login/login.component';
-import { CartComponent } from './cart/cart.component';
-import { CheckoutComponent } from './checkout/checkout.component';
-import { Checkout1Component } from './checkout1/checkout1.component';
-import { Checkout2Component } from './checkout2/checkout2.component';
-import { SuccessComponent } from './success/success.component';
+import { DessertComponent } from './pages/dessert/dessert.component';
+import { LoginComponent } from './pages/login/login.component';
+import { CartComponent } from './pages/cart/cart.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { Checkout1Component } from './pages/checkout1/checkout1.component';
+import { Checkout2Component } from './pages/checkout2/checkout2.component';
+import { SuccessComponent } from './pages/success/success.component';
+import { DataService } from './data.service';
+import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path:'', component: HomeComponentComponent },
@@ -47,10 +51,13 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     FontAwesomeModule,
-    RouterModule.forRoot(routes)
     // AppRoutingModule
+    RouterModule.forRoot(routes),
+    FormsModule,
+    NgbModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

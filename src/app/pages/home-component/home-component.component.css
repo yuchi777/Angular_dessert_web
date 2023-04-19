@@ -1,0 +1,33 @@
+
+.cardImg{
+  height: 350px;
+  position: relative;
+}
+
+.tag{
+  position:absolute;
+  left: 20px;
+  color:white;
+  padding: 20px 10px;
+  writing-mode: vertical-lr;
+  background-color: #3F5D45;
+}
+.card > fa-icon{
+  position:absolute;
+  font-size: 1.5rem;
+  right: 20px;
+  top: 20px;
+  /* color:#3F5D45; */
+}
+
+.card>a{
+  color: #212529;
+  background-color: #EAF0ED;
+  border-color: #EAF0ED;
+  display: block;
+  width: 100%;
+}
+
+.card>a:hover{
+  background-color: #d0dad5;
+}
