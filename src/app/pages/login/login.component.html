@@ -1,11 +1,11 @@
-<main>
+<main class="p-4">
   <div class="container">
     <div class="row justify-content-center  my-5 mx-2">
       <div class="col-md-10">
         <div class="row">
           <div class="col-sm-12 col-md-6 loginLeft p-0 d-flex flex-column justify-content-between">
-            <div class="h1 text-white text-center p-4">會員登入</div>
-            <div class="d-md-none d-block logoLeft p-4 rounded-0">
+            <div class="h1 text-white text-center pt-5">會員登入</div>
+            <div class="d-md-none d-block logoLeft p-3 rounded-0">
               <div class="container">
                 <ul class="list-group list-group-horizontal">
                   <a href="#" class="list-group-item list-group-item-action text-center"><img class="img-fluid h-100"
@@ -17,27 +17,68 @@
                 </ul>
               </div>
             </div>
-            <div class="logoinInput mx-4 mt-3 ">
-              <label for="email">
-                <!-- <i class="fa-solid fa-user p-3"></i> -->
-                <fa-icon [icon]="faUser" class="p-3"></fa-icon>
-              </label>
-              <input class="bg-transparent border-0" type="text" id="email" placeholder="電子信箱/手機號碼">
-            </div>
-            <div class="logoinInput mx-4 mt-2 ">
-              <label for="email">
-                <!-- <i class="fa-solid fa-key p-3"></i> -->
-                <fa-icon [icon]="faKey" class="p-3"></fa-icon>
-              </label>
-              <input class="bg-transparent border-0" type="text" id="email" placeholder="請輸入使用者密碼">
-            </div>
-            <div class="logoinCheckbox mx-4 mt-2 mb-3">
-              <input type="checkbox" id="remember">
-              <label for="remember" class="text-white mx-1">記住我</label>
-            </div>
-            <button type="submit" class="py-3 btn btn-warning text-secondary w-100 rounded-0">登入帳號</button>
+
+            <form #form="ngForm">
+              <div class="formGroup logoinInput mx-4 mt-3 ">
+                <label for="email">
+                  <fa-icon [icon]="faUser" class="p-3"></fa-icon>
+                </label>
+                <!--input pattern(email) ="^[a-zA-Z0-9.!#$%&』*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$" -->
+                <input
+                type="email"
+                class="formControl bg-transparent border-0"
+                name="userEmail"
+                id="email"
+                placeholder="電子信箱"
+                required
+                minlength="3"
+                #iAccount="ngModel"
+                [(ngModel)] = "myEmail"
+                >
+              </div>
+              <div class="errors" *ngIf="iAccount.errors">
+                <p  class="text-white ps-4" *ngIf="iAccount.errors['required']">請輸入使用者名稱/信箱</p>
+              </div>
+
+              <div class="formGroup logoinInput mx-4 mt-2 ">
+                <label for="password">
+                  <fa-icon [icon]="faKey" class="p-3"></fa-icon>
+                </label>
+                <input
+                type="password"
+                class="formControl bg-transparent border-0"
+                name="userPassword"
+                id="password"
+                placeholder="請輸入使用者密碼"
+                required
+                minlength="5"
+                #iPassword="ngModel"
+                [(ngModel)] = "myPassword"  >
+              </div>
+              <div class="errors" *ngIf="iPassword.errors">
+                <p class="text-white ps-4" *ngIf="iPassword.errors['required']">請輸入密碼</p>
+                <p class="text-white ps-4" *ngIf="iPassword.errors['minlength']">密碼長度必須超過6字元</p>
+              </div>
+
+              <!-- 預覽 -->
+              <!-- <pre>{{form.value | json}}</pre> -->
+
+              <div class="logoinCheckbox mx-4 mt-2 mb-3">
+                <input type="checkbox" id="remember" [checked]="checkSet" (change)="rememberMe()">
+                <label for="remember" class="text-white mx-1"   >記住我</label>
+              </div>
+              <button type="submit" class="py-3 btn btn-warning text-secondary w-100 rounded-0">登入帳號</button>
+            </form>
+
+
 
           </div>
+
+
+
+
+
+
           <div
             class="col-sm-12 col-md-6 align-self-center loginRight d-none d-md-flex flex-column justify-content-center">
             <h2 class="h4 text-center text-secondary m-4 d-none d-md-block">—— 連結社群帳號 ——</h2>

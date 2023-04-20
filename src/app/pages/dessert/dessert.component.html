@@ -72,7 +72,7 @@
                   *ngFor="let item of dataFeatured | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize ; let idx = 'index'">
                   <div class="card" id="post{{idx}}">
                     <img src="https://fakeimg.pl/200x200" class="card-img-top cardImg">
-                    <span class="tag">所有甜點</span>
+                    <span class="tag">本日精選</span>
                     <i class="fa-regular fa-heart"></i>
                     <div class="card-body h5 row justify-content-center">
                       <span class="col text-center border-end">{{item[1]}}</span>
@@ -98,7 +98,7 @@
                   *ngFor="let item of dataRecommend | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize ; let idx = 'index'">
                   <div class="card" id="post{{idx}}">
                     <img src="https://fakeimg.pl/200x200" class="card-img-top cardImg">
-                    <span class="tag">所有甜點</span>
+                    <span class="tag">人氣推薦</span>
                     <i class="fa-regular fa-heart"></i>
                     <div class="card-body h5 row justify-content-center">
                       <span class="col text-center border-end">{{item[1]}}</span>
@@ -124,7 +124,7 @@
                   *ngFor="let item of dataNewArrival | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize ; let idx = 'index'">
                   <div class="card" id="post{{idx}}">
                     <img src="https://fakeimg.pl/200x200" class="card-img-top cardImg">
-                    <span class="tag">所有甜點</span>
+                    <span class="tag">新品上市</span>
                     <i class="fa-regular fa-heart"></i>
                     <div class="card-body h5 row justify-content-center">
                       <span class="col text-center border-end">{{item[1]}}</span>
@@ -150,7 +150,7 @@
                   *ngFor="let item of legend | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize ; let idx = 'index'">
                   <div class="card" id="post{{idx}}">
                     <img src="https://fakeimg.pl/200x200" class="card-img-top cardImg">
-                    <span class="tag">所有甜點</span>
+                    <span class="tag">絕版品</span>
                     <i class="fa-regular fa-heart"></i>
                     <div class="card-body h5 row justify-content-center">
                       <span class="col text-center border-end">{{item[1]}}</span>

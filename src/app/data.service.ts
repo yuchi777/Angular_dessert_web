@@ -16,6 +16,9 @@ export interface Api {
   price: string,
   name: string
 
+  username:string,
+  password:string,
+
 }
 
 
@@ -133,7 +136,14 @@ export class DataService {
 
   getAllProduct() {
     return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getAllProduct', {
-      "token": "eyJhbGciOiJIUzUxMiJ9.eyJ1aWQiOjksInN1YiI6ImFkbWluIiwicGVybWlzc2lvbiI6MiwiZXhwIjoxNjgxOTAyNTc5LCJpYXQiOjE2ODE4ODQ1Nzl9.7BUAC1zJcZ-g6ieYrepAQ9fAhKTajSpMuQJiXYH3SUdGIF2jWWr9D2WCKxlnyQw6rNDsAIbudYmxuwWxMhTGyg"
+      "token": "eyJhbGciOiJIUzUxMiJ9.eyJ1aWQiOjksInN1YiI6ImFkbWluIiwicGVybWlzc2lvbiI6MiwiZXhwIjoxNjgxOTcyMDUxLCJpYXQiOjE2ODE5NTQwNTF9.AdcqrOViMz3g4vxLe4JDH5OIcz6_n6rSvwoENPZmUZ6JfQzE2EMd7WLWIks6fIBet6YQ4V7A79AYbDxlaa38DA"
+    })
+  }
+
+  login(_loginInfo: object){
+    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/adminLogin',_loginInfo).subscribe((re)=>{
+      console.log('login function');
+      console.log('login function re',re);
     })
   }
 
