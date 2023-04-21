@@ -38,14 +38,47 @@
 
         <div class="col-md-8">
 
+          <!-- ngx-pagination 方式 -->
+          <!-- <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="all" role="tabpanel">
+              <div class="row">
+                <div class="col-lg-6 mb-3"
+                  *ngFor="let item of dataAllProduct | paginate
+                  : {
+                      itemsPerPage: itemsPerPage,
+                      currentPage: page,
+                      totalItems: totalItems
+                    }  let idx = 'index'">
+                  <div class="card" id="post{{idx}}">
+                    <img src="https://fakeimg.pl/200x200" class="card-img-top cardImg">
+                    <span class="tag">所有甜點</span>
+                    <i class="fa-regular fa-heart"></i>
+                    <div class="card-body h5 row justify-content-center">
+                      <span class="col text-center border-end">{{item[1]}}</span>
+                      <span class="col text-center fw-bold">NTD{{item[2]}}</span>
+                    </div>
+                    <a class="btn btn-lg" id="{{item[0]}}">加入購物車</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row my-3">
+                <div class="col-12 d-flex justify-content-center">
+                  <pagination-controls class="pagination pagination-lg" (pageChange)=" (page = $event)">
+
+                  </pagination-controls>
+                </div>
+              </div>
+            </div> -->
+
 
           <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="all" role="tabpanel">
               <div class="row">
                 <div class="col-lg-6 mb-3"
-                  *ngFor="let item of dataAllProduct | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize ; let idx = 'index'">
+                  *ngFor="let item of dataAllProduct | slice: (pageAll-1) * pageSizeAll : (pageAll-1) * pageSizeAll + pageSizeAll ; let idx = 'index'">
                   <div class="card" id="post{{idx}}">
-                    <img src="https://fakeimg.pl/200x200" class="card-img-top cardImg">
+                    <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
                     <span class="tag">所有甜點</span>
                     <i class="fa-regular fa-heart"></i>
                     <div class="card-body h5 row justify-content-center">
@@ -61,17 +94,18 @@
 
               <div class="row my-3">
                 <div class="col-12 d-flex justify-content-center">
-                  <ngb-pagination class="pagination pagination-lg" [(page)]="page" [pageSize]="pageSize"
+                  <ngb-pagination class="pagination pagination-lg" [(page)]="pageAll" [pageSize]="pageSizeAll"
                     [collectionSize]="dataAllProductLength"></ngb-pagination>
                 </div>
               </div>
             </div>
+
             <div class="tab-pane fade" id="featured" role="tabpanel">
               <div class="row">
                 <div class="col-lg-6 mb-3"
-                  *ngFor="let item of dataFeatured | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize ; let idx = 'index'">
+                  *ngFor="let item of dataFeatured | slice: (pageFeatured-1) * pageSizeFeatured : (pageFeatured-1) * pageSizeFeatured + pageSizeFeatured ; let idx = 'index'">
                   <div class="card" id="post{{idx}}">
-                    <img src="https://fakeimg.pl/200x200" class="card-img-top cardImg">
+                    <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
                     <span class="tag">本日精選</span>
                     <i class="fa-regular fa-heart"></i>
                     <div class="card-body h5 row justify-content-center">
@@ -87,17 +121,18 @@
 
               <div class="row my-3">
                 <div class="col-12 d-flex justify-content-center">
-                  <ngb-pagination class="pagination pagination-lg" [(page)]="page" [pageSize]="pageSize"
+                  <ngb-pagination class="pagination pagination-lg" [(page)]="pageFeatured" [pageSize]="pageSizeFeatured"
                     [collectionSize]="dataFeaturedLength"></ngb-pagination>
                 </div>
               </div>
             </div>
+
             <div class="tab-pane fade" id="recommend" role="tabpanel">
               <div class="row">
                 <div class="col-lg-6 mb-3"
-                  *ngFor="let item of dataRecommend | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize ; let idx = 'index'">
+                  *ngFor="let item of dataRecommend | slice: (pageRecommend-1) * pageSizeRecommend : (pageRecommend-1) * pageSizeRecommend + pageSizeRecommend ; let idx = 'index'">
                   <div class="card" id="post{{idx}}">
-                    <img src="https://fakeimg.pl/200x200" class="card-img-top cardImg">
+                    <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
                     <span class="tag">人氣推薦</span>
                     <i class="fa-regular fa-heart"></i>
                     <div class="card-body h5 row justify-content-center">
@@ -113,17 +148,18 @@
 
               <div class="row my-3">
                 <div class="col-12 d-flex justify-content-center">
-                  <ngb-pagination class="pagination pagination-lg" [(page)]="page" [pageSize]="pageSize"
+                  <ngb-pagination class="pagination pagination-lg" [(page)]="pageRecommend" [pageSize]="pageSizeRecommend"
                     [collectionSize]="dataRecommendLength"></ngb-pagination>
                 </div>
               </div>
             </div>
+
             <div class="tab-pane fade" id="newArrival" role="tabpanel">
               <div class="row">
                 <div class="col-lg-6 mb-3"
-                  *ngFor="let item of dataNewArrival | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize ; let idx = 'index'">
+                  *ngFor="let item of dataNewArrival | slice: (pageNewArrival-1) * pageSizeNewArrival : (pageNewArrival-1) * pageSizeNewArrival + pageSizeNewArrival ; let idx = 'index'">
                   <div class="card" id="post{{idx}}">
-                    <img src="https://fakeimg.pl/200x200" class="card-img-top cardImg">
+                    <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
                     <span class="tag">新品上市</span>
                     <i class="fa-regular fa-heart"></i>
                     <div class="card-body h5 row justify-content-center">
@@ -139,17 +175,18 @@
 
               <div class="row my-3">
                 <div class="col-12 d-flex justify-content-center">
-                  <ngb-pagination class="pagination pagination-lg" [(page)]="page" [pageSize]="pageSize"
+                  <ngb-pagination class="pagination pagination-lg" [(page)]="pageNewArrival" [pageSize]="pageSizeNewArrival"
                     [collectionSize]="dataNewArrivalLength"></ngb-pagination>
                 </div>
               </div>
             </div>
+
             <div class="tab-pane fade" id="legend" role="tabpanel">
               <div class="row">
                 <div class="col-lg-6 mb-3"
-                  *ngFor="let item of legend | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize ; let idx = 'index'">
+                  *ngFor="let item of legend | slice: (pagelegend-1) * pageSizelegend : (pagelegend-1) * pageSizelegend + pageSizelegend ; let idx = 'index'">
                   <div class="card" id="post{{idx}}">
-                    <img src="https://fakeimg.pl/200x200" class="card-img-top cardImg">
+                    <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
                     <span class="tag">絕版品</span>
                     <i class="fa-regular fa-heart"></i>
                     <div class="card-body h5 row justify-content-center">
@@ -165,7 +202,7 @@
 
               <div class="row my-3">
                 <div class="col-12 d-flex justify-content-center">
-                  <ngb-pagination class="pagination pagination-lg" [(page)]="page" [pageSize]="pageSize"
+                  <ngb-pagination class="pagination pagination-lg" [(page)]="pagelegend" [pageSize]="pageSizelegend"
                     [collectionSize]="legendLength"></ngb-pagination>
                 </div>
               </div>

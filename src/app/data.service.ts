@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
-import { Observable } from 'rxjs';
+import { Observable,map  } from 'rxjs';
+// 利用 Rxjs BehaviorSubject 觀察與訂閱的特性處理非直接父子元件之間的資料溝通
+import { BehaviorSubject } from 'rxjs';
 
 
 export interface Api {
+  status: any;
   data: any;
   items: any;
+
 
   //需要從api取出的資料
   img: string,
@@ -28,6 +31,7 @@ export interface Api {
 export class DataService {
 
   data;
+  token = localStorage.getItem('token');
 
   constructor(private http: HttpClient) {
     // http.post('http://presale.megatime.com.tw/sweetApi/getProductsByTypeId',{ "typeId" : 1})
@@ -135,16 +139,14 @@ export class DataService {
 
 
   getAllProduct() {
+    // console.log('getAlltoken',this.token)
     return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getAllProduct', {
-      "token": "eyJhbGciOiJIUzUxMiJ9.eyJ1aWQiOjksInN1YiI6ImFkbWluIiwicGVybWlzc2lvbiI6MiwiZXhwIjoxNjgxOTcyMDUxLCJpYXQiOjE2ODE5NTQwNTF9.AdcqrOViMz3g4vxLe4JDH5OIcz6_n6rSvwoENPZmUZ6JfQzE2EMd7WLWIks6fIBet6YQ4V7A79AYbDxlaa38DA"
+      "token": this.token
     })
   }
 
   login(_loginInfo: object){
-    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/adminLogin',_loginInfo).subscribe((re)=>{
-      console.log('login function');
-      console.log('login function re',re);
-    })
+    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/adminLogin',_loginInfo)
   }
 
 
@@ -152,3 +154,26 @@ export class DataService {
 
 
 }
+
+
+
+@Injectable({
+  providedIn: 'root',
+})
+export class LandRecordService {
+  constructor() {}
+
+  // 提供訂閱服務 - landRecord
+  public landRecord = new BehaviorSubject<any>('');
+  landRecord$ = this.landRecord.asObservable();
+
+  // 寫入 landRecord$
+  setLandRecord(value: any): void {
+      this.landRecord.next(value);
+  }
+}
+
+
+
+
+

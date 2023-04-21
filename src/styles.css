@@ -299,6 +299,10 @@ footer{
 }
 
 /* pagination樣式 */
+
+.ngx-pagination .current {
+  background: #3F5D45 !important;
+}
 .page-item .page-link{
   color:#3F5D45;
 }

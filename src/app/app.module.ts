@@ -22,6 +22,7 @@ import { DataService } from './data.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const routes: Routes = [
   { path:'', component: HomeComponentComponent },
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path:'checkout', component: CheckoutComponent },
   { path:'checkout1', component: Checkout1Component },
   { path:'checkout2', component: Checkout2Component },
-  { path:'success', component: SuccessComponent }
+  { path:'success', component: SuccessComponent },
+
 ];
 
 @NgModule({
@@ -57,6 +59,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     ReactiveFormsModule,
     NgbModule,
+    NgxPaginationModule,
     HttpClientModule
   ],
   providers: [DataService],
