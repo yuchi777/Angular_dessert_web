@@ -30,6 +30,11 @@ export class NavBarComponent {
   ngOnDestroy(): void {
     // 取消訂閱 landRecord$
     if (!!this.landRecordRxjs) this.landRecordRxjs.unsubscribe();
-}
+  }
+
+  checkStatus(){
+    this.landRecords = false;
+    localStorage.removeItem('token');
+  }
 
 }

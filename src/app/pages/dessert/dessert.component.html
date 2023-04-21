@@ -78,14 +78,15 @@
                 <div class="col-lg-6 mb-3"
                   *ngFor="let item of dataAllProduct | slice: (pageAll-1) * pageSizeAll : (pageAll-1) * pageSizeAll + pageSizeAll ; let idx = 'index'">
                   <div class="card" id="post{{idx}}">
-                    <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
+                    <!-- <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg"> -->
+                    <img src="https://fakeimg.pl/200x200" class="card-img-top cardImg">
                     <span class="tag">所有甜點</span>
                     <i class="fa-regular fa-heart"></i>
                     <div class="card-body h5 row justify-content-center">
                       <span class="col text-center border-end">{{item[1]}}</span>
                       <span class="col text-center fw-bold">NTD{{item[2]}}</span>
                     </div>
-                    <a class="btn btn-lg" id="{{item[0]}}">加入購物車</a>
+                    <a class="btn btn-lg" id="{{item[0]}}" (click)="add($event)">加入購物車</a>
                   </div>
                 </div>
 

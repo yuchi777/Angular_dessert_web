@@ -11,11 +11,13 @@ import { DataService } from '../../data.service';
 export class DessertComponent {
 
   faCoffee = faCoffee;
+  counter:number = 1 ;
 
   // ngx-pagination方式
   // page = 1;
   // itemsPerPage = 6;
   // totalItems : any;
+
 
   //ALL
   dataAllProduct!: any[];
@@ -281,6 +283,15 @@ export class DessertComponent {
 
   }
 
+  ngOnChanges(): void {
+    this.datasvc.getAllProduct().subscribe((data) => {
+      console.log('getAllProduct', data.data);
+      this.dataAllProduct = data.data;
+      this.dataAllProductLength = data.data.length;
+    })
+
+  }
+
 
   ngOnInit() {
     this.datasvc.getAllProduct().subscribe((data) => {
@@ -292,7 +303,7 @@ export class DessertComponent {
     })
 
     this.datasvc.getProductsByTypeId(1).subscribe((data) => {
-      console.log('getApiData', data.data);
+      // console.log('getApiData', data.data);
       this.dataFeatured = data.data;
       this.dataFeaturedLength = data.data.length;
     })
@@ -310,6 +321,47 @@ export class DessertComponent {
     })
   }
 
+
+  add(e: any){
+    let productId = e.target.id;
+
+    this.datasvc.getUserCart().subscribe((data)=>{
+
+      console.log(data)
+      console.log(data.data)
+
+      data.data.forEach((e: any[])=>{
+        if(e[0] == productId){
+          console.log('已經在購物車裡');
+          console.log('已有產品數量',e[1])
+          //counter+已有數量
+          this.counter = this.counter + parseInt(e[1]);
+          console.log('增加後數量',this.counter)
+
+
+
+        }else{
+          console.log('點選產品ID',productId)
+        }
+      })
+
+
+
+
+    })
+
+    //檢查庫存邏輯
+    //batchUpdateUserCartQuantity()
+    //若太少告警
+
+
+    this.datasvc.addUserCart(productId,this.counter).subscribe((data)=>{
+      //counter打回去
+      console.log('addUserCart',data)
+      this.counter = 1;
+    })
+
+  }
 
 
 }
