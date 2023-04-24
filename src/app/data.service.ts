@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable,map  } from 'rxjs';
 // 利用 Rxjs BehaviorSubject 觀察與訂閱的特性處理非直接父子元件之間的資料溝通
 import { BehaviorSubject } from 'rxjs';
-
+import jwt_decode from 'jwt-decode';
 
 export interface Api {
   status: any;
@@ -31,7 +31,7 @@ export interface Api {
 export class DataService {
 
   data:any;
-  token = localStorage.getItem('token');
+  token:any = localStorage.getItem('token');
   adminToken = localStorage.getItem('adminToken');
 
   constructor(private http: HttpClient) {
@@ -148,6 +148,32 @@ export class DataService {
   }
 
 
+
+  addUserCart(productId:number,counter:number){
+    return this.http.post('http://presale.money-link.com.tw/sweetApi/addUserCart',{
+      "token": this.token,
+      "productId": productId,
+      // "orderQuantity":counter,
+      "orderQuantity":1,
+    })
+  }
+
+  getUserCart(){
+    console.log('getusercartToken',this.token);
+    console.log('getusercartToken',jwt_decode(this.token));
+    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getUserCart',{
+      "token": this.token
+    })
+  }
+
+  updateUserCart(productId:number,counter:number){
+    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/updateUserCart',{
+      "token": this.token,
+      "productId": productId,
+      "orderQuantity":counter
+    })
+  }
+
   //檢查庫存
   batchUpdateUserCartQuantity(_checkProduct:{ productId: number ; orderQuantity:number}){
     return this.http.post('http://presale.money-link.com.tw/sweetApi/batchUpdateUserCart',{
@@ -156,20 +182,6 @@ export class DataService {
         productId : 1,
         orderQuantity : 2,
       } ]
-    })
-  }
-
-  addUserCart(productId:number,counter:number){
-    return this.http.post('http://presale.money-link.com.tw/sweetApi/addUserCart',{
-      "token": this.token,
-      "productId": productId,
-      "orderQuantity":1
-    })
-  }
-
-  getUserCart(){
-    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getUserCart',{
-      "token": this.token
     })
   }
 

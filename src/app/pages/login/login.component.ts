@@ -61,10 +61,13 @@ export class LoginComponent {
         this.isLogin = true;
 
         console.log('jwt',jwt_decode(re.data))
+
         if(this.myEmail == 'admin'){
-          localStorage.setItem('adminToken',re.data)
+          localStorage.setItem('name',this.myEmail);
+          localStorage.setItem('adminToken',re.data);
+          localStorage.setItem('token',re.data);
         }
-        localStorage.setItem('token',re.data)
+        localStorage.setItem('token',re.data);
 
         alert('登入成功')
 
@@ -73,11 +76,11 @@ export class LoginComponent {
         this.router.navigate(['/'])
       }
     },(error)=>{
-      this.isLogin = false;
+      // this.isLogin = false;
       console.log(error);
       alert('登入失敗'+ error.error.message);
-      localStorage.removeItem('token');
-      this.landRecordService.setLandRecord(this.isLogin)
+      // localStorage.removeItem('token');
+      // this.landRecordService.setLandRecord(this.isLogin)
       window.location.reload();
     })
   }

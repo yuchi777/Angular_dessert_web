@@ -10,9 +10,9 @@ import { DataService } from '../../data.service';
 export class HomeComponentComponent {
 
   faHeart = faHeart;
-  dataFeatured: any;
-  dataRecommend: any;
-  dataNewArrival: any;
+  dataFeatured!: any[]
+  dataRecommend!: any[]
+  dataNewArrival!: any[]
 
   // DI注入
   constructor(public datasvc: DataService) {

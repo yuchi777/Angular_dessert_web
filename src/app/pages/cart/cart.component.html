@@ -8,30 +8,33 @@
               <div class="col mb-2">
                 <h2 class="h4 text-center text-secondary cartLeft p-3">你的購物車</h2>
               </div>
-              <div class="col mb-2">
+              <div class="col mb-2" *ngFor="let item of cartItem">
                 <div class="row align-items-center justify-content-end">
-                  <div class="col-7 col-md-3 cartBackground">
-                    <!-- <img src="https://bit.ly/2R5tqwD" class="cartImg my-2"> -->
+                  <div class="col-7 col-md-3 cartBackground"
+                  style="background-image: url('data:image/jpg;base64,{{item[5]}}');"
+                  >
                   </div>
                   <div class="col-5 col-md-6">
                     <div class="row flex-column flex-md-row ps-1 ps-md-0">
                       <div class="col">
                         <div class="row flex-column ps-3">
-                          <div class="col"><span>抹茶馬卡龍</span></div>
-                          <div class="col"><span>N$450</span></div>
+                          <div class="col"><span>{{item[2]}}</span></div>
+                          <div class="col"><span>NT${{item[3]}}</span></div>
                         </div>
                       </div>
                       <div class="col">
                         <div class="input-group px-2">
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon1">-</button>
-                          <input type="text" class="form-control text-center" placeholder="2">
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon1">+</button>
+                          <button class="btn btn-outline-secondary" type="button" >-</button>
+
+                          <input type="text" class="form-control text-center" placeholder="{{item[1]}}">
+
+                          <button class="btn btn-outline-secondary" type="button" value="{{item[1]}}" id="btn-{{item[0]}}" (click)="add($event)">+</button>
                         </div>
                       </div>
                     </div>
 
                   </div>
-                  <div class="col-2 px-1 fw-bold cartItemHeight">NT$900</div>
+                  <div class="col-2 px-1 fw-bold cartItemHeight">NT${{item[3] * item[1]}}</div>
                   <div
                   class="col-1 px-1 cartItemHeight"
                   >
@@ -41,36 +44,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col mb-2">
-                <div class="row align-items-center justify-content-end">
-                  <div class="col-7 col-md-3 cartBackground">
-                    <!-- <img src="https://bit.ly/2R5tqwD" class="cartImg my-2"> -->
-                  </div>
-                  <div class="col-5 col-md-6">
-                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
-                      <div class="col">
-                        <div class="row flex-column ps-3">
-                          <div class="col"><span>抹茶馬卡龍</span></div>
-                          <div class="col"><span>N$450</span></div>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <div class="input-group px-2">
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon1">-</button>
-                          <input type="text" class="form-control text-center" placeholder="2">
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon1">+</button>
-                        </div>
-                      </div>
-                    </div>
 
-                  </div>
-                  <div class="col-2 px-1 fw-bold  cartItemHeight">NT$900</div>
-                  <div class="col-1 px-1  cartItemHeight">
-                    <!-- <i class="fa-solid fa-trash"></i> -->
-                    <fa-icon [icon]="faTrash"></fa-icon>
-                  </div>
-                </div>
-              </div>
             </div>
 
 

@@ -31,7 +31,7 @@
             <div class="newArrivalImg"></div>
           </a>
         </div>
-        
+
       </div>
     </div>
   </div>
@@ -98,11 +98,11 @@
 
         <div class="tab-pane fade show active" id="nav-featured" role="tabpanel">
           <div class="row" >
-            <div class="col-md-6 col-lg-4 my-1" *ngFor="let item of dataFeatured; let idx = 'index'">
+            <div class="col-md-6 col-lg-4 my-1" *ngFor="let item of dataFeatured | slice: 0:3 ; let idx = 'index'">
 
               <div class="card" id="post{{idx}}" >
                 <!-- <img src="{{item[4]}}" class="card-img-top cardImg"> -->
-                <img src="https://fakeimg.pl/200x200" class="card-img-top cardImg">
+                <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
                 <span class="tag">本日精選</span>
                 <fa-icon [icon]="faHeart"></fa-icon>
                 <div class="card-body">
@@ -122,11 +122,11 @@
           <div class="row">
             <div
             class="col-md-6 col-lg-4 my-1"
-            *ngFor="let item of dataRecommend; let idx = 'index'"
+            *ngFor="let item of dataRecommend | slice: 0:3 ; let idx = 'index'"
             >
               <div class="card" id="post{{idx}}">
                 <!-- <img src="{{item[4]}}" class="card-img-top cardImg"> -->
-                <img src="https://fakeimg.pl/200x200" class="card-img-top cardImg">
+                <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
                 <span class="tag">人氣推薦</span>
                 <!-- <i class="fa-regular fa-heart"></i> -->
                 <fa-icon [icon]="faHeart"></fa-icon>
@@ -149,11 +149,11 @@
 
             <div
             class="col-md-6 col-lg-4 my-1"
-            *ngFor="let item of dataNewArrival; let idx = 'index'"
+            *ngFor="let item of dataNewArrival | slice: 0:3 ; let idx = 'index'"
             >
               <div class="card" id="post{{idx}}">
                 <!-- <img src="{{item[4]}}" class="card-img-top cardImg"> -->
-                <img src="https://fakeimg.pl/200x200" class="card-img-top cardImg">
+                <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
                 <span class="tag">新品上市</span>
                 <!-- <i class="fa-regular fa-heart"></i> -->
                 <fa-icon [icon]="faHeart"></fa-icon>

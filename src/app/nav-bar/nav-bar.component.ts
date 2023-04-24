@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { LandRecordService } from '../data.service';
+import { Router } from '@angular/router';
+import jwt_decode from 'jwt-decode';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -13,10 +15,12 @@ export class NavBarComponent {
   landRecordRxjs: any = null;
   // 狀態
   landRecords = false;
+  username = localStorage.getItem('name');
 
-  constructor(private landRecordService: LandRecordService){
+  constructor(private landRecordService: LandRecordService,private router: Router,){
 
   }
+
 
   ngOnInit(): void {
     // 訂閱 landRecord$
@@ -24,8 +28,9 @@ export class NavBarComponent {
         // 更新總筆數
         this.landRecords = resp;
     });
-
+    console.log('landRecords',this.landRecords);
   }
+
 
   ngOnDestroy(): void {
     // 取消訂閱 landRecord$
@@ -35,6 +40,10 @@ export class NavBarComponent {
   checkStatus(){
     this.landRecords = false;
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('name');
+    this.router.navigate(['/login'])
+    // window.location.reload();
   }
 
 }
