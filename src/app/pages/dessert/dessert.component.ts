@@ -11,7 +11,7 @@ import { DataService } from '../../data.service';
 export class DessertComponent {
 
   faCoffee = faCoffee;
-  counter:number = 1 ;
+  counter: number = 1;
 
   // ngx-pagination方式
   // page = 1;
@@ -28,25 +28,25 @@ export class DessertComponent {
 
   // 本日精選
   dataFeatured!: any[];
-  dataFeaturedLength!:number;
+  dataFeaturedLength!: number;
   pageFeatured = 1;
   pageSizeFeatured = 6;
 
   //人氣推薦
   dataRecommend!: any[];
-  dataRecommendLength!:number;
+  dataRecommendLength!: number;
   pageRecommend = 1;
   pageSizeRecommend = 6;
 
   //新品上市
   dataNewArrival!: any[];
-  dataNewArrivalLength!:number;
+  dataNewArrivalLength!: number;
   pageNewArrival = 1;
   pageSizeNewArrival = 6;
 
   // 絕版品
   legend!: any[];
-  legendLength!:number;
+  legendLength!: number;
   pagelegend = 1;
   pageSizelegend = 6;
 
@@ -322,46 +322,86 @@ export class DessertComponent {
   }
 
 
-  add(e: any){
+  add(e: any) {
+
+    // {
+    //   fieldIndex
+    //   productId:0
+    //   orderQuantity:1
+    //   name:2
+    //   price:3
+    //   inventories:4
+    //   img:5
+    // }
+
+    //取得產品ID
     let productId = e.target.id;
 
-    this.datasvc.getUserCart().subscribe((data)=>{
+    //取得使用者購物車資訊
+    //新增購物車產品數量
+    this.datasvc.getUserCart().subscribe((data) => {
 
-      console.log(data)
-      console.log(data.data)
+      console.log('購物車', data)
+      console.log('購物車data', data.data)
 
-      data.data.forEach((e: any[])=>{
-        if(e[0] == productId){
+      let carData = data.data;
+
+
+
+      carData.forEach((e: any[]) => {
+
+
+        if (e[0] == productId && e[1].length > 0) {
           console.log('已經在購物車裡');
-          console.log('已有產品數量',e[1])
+          console.log('已有產品數量', e[1]);
+          console.log('name', e[2]);
+
           //counter+已有數量
           this.counter = this.counter + parseInt(e[1]);
-          console.log('增加後數量',this.counter)
+          console.log('增加後數量', this.counter)
 
-
-
-        }else{
-          console.log('點選產品ID',productId)
+          //新增購物車產品數量
+          this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
+            //counter打回去
+            alert(`新增成功商品ID-${productId}成功, 購物車有${this.counter}件`)
+            console.log('addUserCart', data)
+            this.counter = 1;
+          })
         }
       })
 
 
+      //確認購物車有無點選產品
+      let chkProductId = carData.every((e: any[]) => {
+        return e[0] !== productId
+      });
+      console.log('沒有在購物車裡', chkProductId);
+
+      // 若無產品productId,新增新產品至購物車
+      if (chkProductId) {
+        console.log('點選ID', productId);
+
+        this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
+          alert(`新增成功商品ID-${productId}成功, 購物車有${this.counter}件`)
+          console.log('addUserCart', data)
+          this.counter = 1;
+        })
+      }
 
 
-    })
-
-    //檢查庫存邏輯
-    //batchUpdateUserCartQuantity()
-    //若太少告警
 
 
-    this.datasvc.addUserCart(productId,this.counter).subscribe((data)=>{
-      //counter打回去
-      console.log('addUserCart',data)
-      this.counter = 1;
     })
 
   }
+
+
+
+
+
+  //檢查庫存邏輯(結帳時)
+  //batchUpdateUserCartQuantity()
+  //若太少告警
 
 
 }
