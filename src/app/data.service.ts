@@ -177,15 +177,21 @@ export class DataService {
     })
   }
 
+  deleteFromUserCart(productId:number){
+    const token = localStorage.getItem('token');
+    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/deleteUserCart',{
+      "token": token,
+      "productId": productId
+    })
+  }
+
   //檢查庫存
   batchUpdateUserCartQuantity(_checkProduct:{ productId: number ; orderQuantity:number}){
     const token = localStorage.getItem('token');
-    return this.http.post('http://presale.money-link.com.tw/sweetApi/batchUpdateUserCart',{
+    console.log('_checkProduct',_checkProduct)
+    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/batchUpdateUserCart',{
       "token": token,
-      "userCarts":[ {
-        productId : 1,
-        orderQuantity : 2,
-      } ]
+      "userCarts": _checkProduct
     })
   }
 

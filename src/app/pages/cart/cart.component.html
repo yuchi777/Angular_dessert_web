@@ -11,9 +11,10 @@
               <div class="col mb-2" *ngFor="let item of cartItem">
                 <div class="row align-items-center justify-content-end">
                   <div class="col-7 col-md-3 cartBackground"
-                  style="background-image: url('http://fakeimg.pl/200x200/');"
+                  style="background-image: url('http://fakeimg.pl/200x200/')"
                   >
-                  <!-- data:image/jpg;base64,{{item[5]}} -->
+                  <!-- http://fakeimg.pl/200x200/ -->
+                  <!-- data:image/jpg;base64,{{item.img}} -->
                   </div>
                   <div class="col-5 col-md-6">
                     <div class="row flex-column flex-md-row ps-1 ps-md-0">
@@ -26,17 +27,23 @@
                       <div class="col">
                         <div class="input-group px-2">
                           <button
-                          class="btn btn-outline-secondary"
+                          class="btn btn-outline-secondary btn-sm"
                           type="button"
                           value="{{item.orderQuantity}}"
                           id="btnReduce-{{item.productId}}"
                           (click)="reduce($event)"
                           >-</button>
 
-                          <input type="text" class="form-control text-center" placeholder="{{item.orderQuantity}}">
+                          <input
+                          style="min-width: 50px;"
+                          type="text"
+                          class="form-control text-center"
+                          value="{{item.orderQuantity}}"
+                          id="btnChange-{{item.productId}}"
+                          (change)="itemCountChange($event)">
 
                           <button
-                          class="btn btn-outline-secondary"
+                          class="btn btn-outline-secondary btn-sm"
                           type="button"
                           value="{{item.orderQuantity}}"
                           id="btnAdd-{{item.productId}}"
@@ -47,13 +54,19 @@
                     </div>
 
                   </div>
-                  <div class="col-3 px-1 fw-bold cartItemHeight">
+                  <div class="col-3 px-1 fw-bold cartItemHeight align-self-end">
                     <div class="row justify-content-between">
-                      <div class="col-9 px-1">
+                      <div class="col-8 px-1">
                         {{item.price * item.orderQuantity | currency:'TWD':'symbol':'1.0'}}
                       </div>
-                      <div class="col-3 px-1">
-                        <fa-icon [icon]="faTrash"></fa-icon>
+                      <div class="col-4 px-1">
+                        <button
+                        class="btn"
+                        id="{{item.productId}}"
+                        (click)="deleteItem($event)"
+                        >
+                          <fa-icon [icon]="faTrash" class="drop"></fa-icon>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -76,17 +89,20 @@
             </div>
             <div class="px-4 text-white d-flex justify-content-between">
               <span>小計</span>
-              <span>NT${{total}}</span>
+              <span>{{total | currency:'TWD':'symbol':'1.0'}}</span>
             </div>
             <div class="px-4 text-white d-flex justify-content-between">
               <span>運費</span>
-              <span>NT${{fare}}</span>
+              <span>{{fare | currency:'TWD':'symbol':'1.0'}}</span>
             </div>
             <div class="px-4 text-white d-flex justify-content-between h5">
               <span>總計</span>
-              <span>NT${{total+fare}}</span>
+              <span>{{total+fare | currency:'TWD':'symbol':'1.0'}}</span>
             </div>
-            <a routerLink="/checkout" type="submit" class="py-3 btn btn-warning text-secondary w-100 rounded-0">結帳</a>
+            <a
+            type="submit"
+            class="py-3 btn btn-warning text-secondary w-100 rounded-0"
+            (click)="checkout()">結帳</a>
 
 
           </div>

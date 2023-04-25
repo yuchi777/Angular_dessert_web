@@ -63,15 +63,15 @@
                 </div>
                 <div class="d-flex justify-content-between lh-lg">
                   <span>小計</span>
-                  <span>NT$2700</span>
+                  <span>{{total | currency:'TWD':'symbol':'1.0'}}</span>
                 </div>
                 <div class="d-flex justify-content-between lh-lg">
                   <span>運費</span>
-                  <span>NT$300</span>
+                  <span>{{fare | currency:'TWD':'symbol':'1.0'}}</span>
                 </div>
                 <div class="d-flex justify-content-between h5 lh-lg">
                   <span>總計</span>
-                  <span>NT$3000</span>
+                  <span>{{total+fare | currency:'TWD':'symbol':'1.0'}}</span>
                 </div>
               </div>
 
@@ -79,55 +79,27 @@
                 <div class="text-center py-2 mb-2 checkoutRight-color">
                   <div class="h4 my-auto">購物清單</div>
                 </div>
-                <div class="py-1 mb-2 row align-items-center justify-content-between">
-                  <div class="col-8 col-md-3 checkoutBkground"></div>
-                  <div class="col-4 col-md-6">
-                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
-                      <div class="col">
-                        <div class="row flex-column ">
-                          <div class="col h5"><span>抹茶馬卡龍</span></div>
-                          <div class="col h5"><span>(2)</span></div>
-                          <div class="col"><span>N$450</span></div>
+
+                <div *ngFor="let item of cartItem">
+                  <div class="py-1 mb-2 row align-items-center justify-content-between">
+                    <div class="col-8 col-md-5 checkoutBkground" style="background-image: url('http://fakeimg.pl/100x100/')"></div>
+                    <!-- http://fakeimg.pl/200x200/ -->
+                    <!-- data:image/jpg;base64,{{item.img}} -->
+                    <div class="col-4 col-md-6">
+                      <div class="row flex-column flex-md-row ps-1 ps-md-0">
+                        <div class="col">
+                          <div class="row flex-column ">
+                            <div class="col h5"><span>{{item.name}}</span></div>
+                            <div class="col h5"><span>({{item.orderQuantity}})</span></div>
+                            <div class="col"><span>{{item.price| currency:'TWD':'symbol':'1.0'}}</span></div>
+                          </div>
                         </div>
                       </div>
                     </div>
-
-                  </div>
-                </div>
-                <div class="py-1 mb-2 row align-items-center justify-content-between">
-                  <div class="col-8 col-md-3 checkoutBkground"></div>
-                  <div class="col-4 col-md-6">
-                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
-                      <div class="col">
-                        <div class="row flex-column ">
-                          <div class="col h5"><span>抹茶馬卡龍</span></div>
-                          <div class="col h5"><span>(2)</span></div>
-                          <div class="col"><span>N$450</span></div>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-                <div class="py-1 mb-2 row align-items-center justify-content-between">
-                  <div class="col-8 col-md-3 checkoutBkground"></div>
-                  <div class="col-4 col-md-6">
-                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
-                      <div class="col">
-                        <div class="row flex-column ">
-                          <div class="col h5"><span>抹茶馬卡龍</span></div>
-                          <div class="col h5"><span>(2)</span></div>
-                          <div class="col"><span>N$450</span></div>
-                        </div>
-                      </div>
-                    </div>
-
                   </div>
                 </div>
               </div>
             </div>
-
-
 
 
           </div>
