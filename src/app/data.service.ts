@@ -31,7 +31,7 @@ export interface Api {
 export class DataService {
 
   data:any;
-  token:any = localStorage.getItem('token');
+
   adminToken = localStorage.getItem('adminToken');
 
   constructor(private http: HttpClient) {
@@ -150,8 +150,9 @@ export class DataService {
 
 
   addUserCart(productId:number,counter:number){
+    const token = localStorage.getItem('token');
     return this.http.post('http://presale.money-link.com.tw/sweetApi/addUserCart',{
-      "token": this.token,
+      "token": token,
       "productId": productId,
       // "orderQuantity":counter,
       "orderQuantity":1,
@@ -159,16 +160,18 @@ export class DataService {
   }
 
   getUserCart(){
-    console.log('getusercartToken',this.token);
-    console.log('getusercartToken',jwt_decode(this.token));
+    const token:any = localStorage.getItem('token');
+    console.log('getusercartToken',token);
+    console.log('getusercartToken',jwt_decode(token));
     return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getUserCart',{
-      "token": this.token
+      "token": token
     })
   }
 
   updateUserCart(productId:number,counter:number){
+    const token = localStorage.getItem('token');
     return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/updateUserCart',{
-      "token": this.token,
+      "token": token,
       "productId": productId,
       "orderQuantity":counter
     })
@@ -176,8 +179,9 @@ export class DataService {
 
   //檢查庫存
   batchUpdateUserCartQuantity(_checkProduct:{ productId: number ; orderQuantity:number}){
+    const token = localStorage.getItem('token');
     return this.http.post('http://presale.money-link.com.tw/sweetApi/batchUpdateUserCart',{
-      "token": this.token,
+      "token": token,
       "userCarts":[ {
         productId : 1,
         orderQuantity : 2,

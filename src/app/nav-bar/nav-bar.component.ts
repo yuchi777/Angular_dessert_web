@@ -15,7 +15,9 @@ export class NavBarComponent {
   landRecordRxjs: any = null;
   // 狀態
   landRecords = false;
-  username = localStorage.getItem('name');
+
+  //token
+  token:any;
 
   constructor(private landRecordService: LandRecordService,private router: Router,){
 
@@ -23,6 +25,11 @@ export class NavBarComponent {
 
 
   ngOnInit(): void {
+
+    this.token = localStorage.getItem('token');
+    // const token_decode  = jwt_decode(this.token);
+    // console.log('token_decode',token_decode)
+
     // 訂閱 landRecord$
     this.landRecordRxjs = this.landRecordService.landRecord$.subscribe((resp) => {
         // 更新總筆數
@@ -32,16 +39,15 @@ export class NavBarComponent {
   }
 
 
-  ngOnDestroy(): void {
-    // 取消訂閱 landRecord$
-    if (!!this.landRecordRxjs) this.landRecordRxjs.unsubscribe();
-  }
+  // 取消訂閱 landRecord$
+  // ngOnDestroy(): void {
+  //   if (!!this.landRecordRxjs) this.landRecordRxjs.unsubscribe();
+  // }
 
-  checkStatus(){
+  logout(){
     this.landRecords = false;
     localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    localStorage.removeItem('name');
+    console.log('localStorage token 已清除')
     this.router.navigate(['/login'])
     // window.location.reload();
   }

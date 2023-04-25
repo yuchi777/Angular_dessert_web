@@ -11,37 +11,57 @@
               <div class="col mb-2" *ngFor="let item of cartItem">
                 <div class="row align-items-center justify-content-end">
                   <div class="col-7 col-md-3 cartBackground"
-                  style="background-image: url('data:image/jpg;base64,{{item[5]}}');"
+                  style="background-image: url('http://fakeimg.pl/200x200/');"
                   >
+                  <!-- data:image/jpg;base64,{{item[5]}} -->
                   </div>
                   <div class="col-5 col-md-6">
                     <div class="row flex-column flex-md-row ps-1 ps-md-0">
                       <div class="col">
                         <div class="row flex-column ps-3">
-                          <div class="col"><span>{{item[2]}}</span></div>
-                          <div class="col"><span>NT${{item[3]}}</span></div>
+                          <div class="col"><span>{{item.name}}</span></div>
+                          <div class="col"><span>{{item.price| currency:'TWD':'symbol':'1.0'}}</span></div>
                         </div>
                       </div>
                       <div class="col">
                         <div class="input-group px-2">
-                          <button class="btn btn-outline-secondary" type="button" >-</button>
+                          <button
+                          class="btn btn-outline-secondary"
+                          type="button"
+                          value="{{item.orderQuantity}}"
+                          id="btnReduce-{{item.productId}}"
+                          (click)="reduce($event)"
+                          >-</button>
 
-                          <input type="text" class="form-control text-center" placeholder="{{item[1]}}">
+                          <input type="text" class="form-control text-center" placeholder="{{item.orderQuantity}}">
 
-                          <button class="btn btn-outline-secondary" type="button" value="{{item[1]}}" id="btn-{{item[0]}}" (click)="add($event)">+</button>
+                          <button
+                          class="btn btn-outline-secondary"
+                          type="button"
+                          value="{{item.orderQuantity}}"
+                          id="btnAdd-{{item.productId}}"
+                          (click)="add($event)"
+                          >+</button>
                         </div>
                       </div>
                     </div>
 
                   </div>
-                  <div class="col-2 px-1 fw-bold cartItemHeight">NT${{item[3] * item[1]}}</div>
-                  <div
-                  class="col-1 px-1 cartItemHeight"
-                  >
+                  <div class="col-3 px-1 fw-bold cartItemHeight">
+                    <div class="row justify-content-between">
+                      <div class="col-9 px-1">
+                        {{item.price * item.orderQuantity | currency:'TWD':'symbol':'1.0'}}
+                      </div>
+                      <div class="col-3 px-1">
+                        <fa-icon [icon]="faTrash"></fa-icon>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="col-1 px-1 cartItemHeight"> -->
                     <!-- (delete)="doDelete($event)" -->
                     <!-- <i class="fa-solid fa-trash"></i> -->
-                    <fa-icon [icon]="faTrash"></fa-icon>
-                  </div>
+
+                  <!-- </div> -->
                 </div>
               </div>
 
@@ -56,15 +76,15 @@
             </div>
             <div class="px-4 text-white d-flex justify-content-between">
               <span>小計</span>
-              <span>NT$2700</span>
+              <span>NT${{total}}</span>
             </div>
             <div class="px-4 text-white d-flex justify-content-between">
               <span>運費</span>
-              <span>NT$300</span>
+              <span>NT${{fare}}</span>
             </div>
             <div class="px-4 text-white d-flex justify-content-between h5">
               <span>總計</span>
-              <span>NT$3000</span>
+              <span>NT${{total+fare}}</span>
             </div>
             <a routerLink="/checkout" type="submit" class="py-3 btn btn-warning text-secondary w-100 rounded-0">結帳</a>
 
