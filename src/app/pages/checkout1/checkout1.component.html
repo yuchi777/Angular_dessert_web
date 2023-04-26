@@ -18,36 +18,116 @@
 
             </div>
 
-            <form class="row g-3 mx-2 mb-3">
-              <div class="col-12">
+            <form class="row g-3 mx-2 mb-3" [formGroup]="form" (ngSubmit)="submit()">
+              <div class="col-12 form-Group">
                 <label for="cardnumber" class="form-label text-white">信用卡號</label>
-                <input type="text" class="form-control checkoutInput" id="cardnumber" placeholder="1232-1231-1231-1231">
+                <input
+                type="text"
+                class="form-control checkoutInput"
+                id="cardnumber"
+                placeholder="1232-1231-1231-1231"
+                [(ngModel)]="delivery.cardNumber"
+                formControlName="cardNumber"
+                minlength="16"
+                >
+                <span *ngIf="form.controls['cardNumber'].touched && !form.controls['cardNumber'].valid" class="mx-1 text-white">
+                  Credit Card Number is required
+                </span>
+                <span *ngIf="form.controls['cardNumber'].errors?.['minlength']" class="mx-1 text-white">
+                  Minlength is 16
+                </span>
               </div>
               <div class="col-6 col-md-6">
                 <label for="lastname" class="form-label text-white">持卡人姓氏</label>
-                <input type="text" class="form-control checkoutInput" id="lastname" placeholder="王">
+                <input
+                type="text"
+                class="form-control checkoutInput"
+                id="lastname"
+                placeholder="王"
+                [(ngModel)]="delivery.lastName"
+                formControlName="lastName"
+                >
+                <span *ngIf="form.controls['lastName'].touched && !form.controls['lastName'].valid" class="mx-1 text-white">
+                  Last Name is required
+                </span>
               </div>
               <div class="col-6 col-md-6">
                 <label for="firstname" class="form-label text-white">名子</label>
-                <input type="text" class="form-control checkoutInput" id="firstname" placeholder="小名">
+                <input
+                type="text"
+                class="form-control checkoutInput"
+                id="firstname"
+                placeholder="小名"
+                [(ngModel)]="delivery.firstName"
+                formControlName="firstName"
+                >
+                <span *ngIf="form.controls['firstName'].touched && !form.controls['firstName'].valid" class="mx-1 text-white">
+                  First Name is required
+                </span>
               </div>
 
               <div class="col-6 col-md-6">
-                <label for="month" class="form-label text-white">有效期限</label>
-                <input type="text" class="form-control checkoutInput" id="month" placeholder="月">
+                <label for="month" class="form-label text-white">到期月</label>
+                <input
+                type="number"
+                class="form-control checkoutInput"
+                id="month"
+                placeholder="12"
+                [(ngModel)]="delivery.month"
+                formControlName="month"
+                min="1"
+                max="12"
+                >
+                <span *ngIf="form.controls['month'].touched && !form.controls['month'].valid" class="mx-1 text-white">
+                  Expiry Month Error
+                </span>
               </div>
               <div class="col-6 col-md-6">
-                <label for="year" class="form-label text-white">有效期限</label>
-                <input type="text" class="form-control checkoutInput" id="year" placeholder="年">
+                <label for="year" class="form-label text-white">到期年</label>
+                <input
+                type="number"
+                class="form-control checkoutInput"
+                id="year"
+                placeholder="2023"
+                [(ngModel)]="delivery.year"
+                formControlName="year"
+                min="2023"
+                max="2030"
+                step="1"
+                value="2023"
+                >
+                <span *ngIf="form.controls['year'].touched && !form.controls['year'].valid" class="mx-1 text-white">
+                  Expiry Year Error
+                </span>
               </div>
               <div class="col-12">
-                <label for="exp" class="form-label text-white">有效期限</label>
-                <input type="text" class="form-control checkoutInput" id="exp" placeholder="00/00">
+                <label for="exp" class="form-label text-white">安全碼</label>
+                <input
+                type="number"
+                class="form-control checkoutInput"
+                id="exp"
+                placeholder="123"
+                [(ngModel)]="delivery.code"
+                formControlName="code"
+                min="0"
+                max="999"
+                step="1"
+                >
+                <span *ngIf="form.controls['code'].touched && !form.controls['code'].valid" class="mx-1 text-white">
+                  Security Code Error
+                </span>
               </div>
             </form>
 
 
-            <a routerLink="/checkout2" type="submit" class="py-3 btn btn-warning text-secondary w-100 rounded-0">下一步</a>
+            <button
+            [disabled]="!form.valid"
+            type="submit"
+            class="py-3 btn btn-warning text-secondary w-100 rounded-0"
+            (click)="submit()"
+            >
+            下一步
+          </button>
 
 
 
@@ -61,15 +141,15 @@
                 </div>
                 <div class="d-flex justify-content-between lh-lg">
                   <span>小計</span>
-                  <span>NT$2700</span>
+                  <span>{{total | currency:'TWD':'symbol':'1.0'}}</span>
                 </div>
                 <div class="d-flex justify-content-between lh-lg">
                   <span>運費</span>
-                  <span>NT$300</span>
+                  <span>{{fare | currency:'TWD':'symbol':'1.0'}}</span>
                 </div>
                 <div class="d-flex justify-content-between h5 lh-lg">
                   <span>總計</span>
-                  <span>NT$3000</span>
+                  <span>{{total+fare | currency:'TWD':'symbol':'1.0'}}</span>
                 </div>
               </div>
 
@@ -77,51 +157,28 @@
                 <div class="text-center py-2 mb-2 checkoutRight-color">
                   <div class="h4 my-auto">購物清單</div>
                 </div>
-                <div class="py-1 mb-2 row align-items-center justify-content-between">
-                  <div class="col-8 col-md-3 checkoutBkground" ></div>
-                  <div class="col-4 col-md-6">
-                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
-                      <div class="col">
-                        <div class="row flex-column ">
-                          <div class="col h5"><span>抹茶馬卡龍</span></div>
-                          <div class="col h5"><span>(2)</span></div>
-                          <div class="col"><span>N$450</span></div>
+
+                <div *ngFor="let item of cartItem">
+                  <div class="py-1 mb-2 row align-items-center justify-content-between">
+                    <div class="col-8 col-md-5 checkoutBkground"
+                      style="background-image: url('data:image/jpg;base64,{{item.img}}')"></div>
+                    <!-- http://fakeimg.pl/200x200/ -->
+                    <!-- data:image/jpg;base64,{{item.img}} -->
+                    <div class="col-4 col-md-6">
+                      <div class="row flex-column flex-md-row ps-1 ps-md-0">
+                        <div class="col">
+                          <div class="row flex-column ">
+                            <div class="col h5"><span>{{item.name}}</span></div>
+                            <div class="col h5"><span>({{item.orderQuantity}})</span></div>
+                            <div class="col"><span>{{item.price| currency:'TWD':'symbol':'1.0'}}</span></div>
+                          </div>
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
-                <div class="py-1 mb-2 row align-items-center justify-content-between">
-                  <div class="col-8 col-md-3 checkoutBkground"></div>
-                  <div class="col-4 col-md-6">
-                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
-                      <div class="col">
-                        <div class="row flex-column ">
-                          <div class="col h5"><span>抹茶馬卡龍</span></div>
-                          <div class="col h5"><span>(2)</span></div>
-                          <div class="col"><span>N$450</span></div>
-                        </div>
-                      </div>
-                    </div>
 
-                  </div>
-                </div>
-                <div class="py-1 mb-2 row align-items-center justify-content-between">
-                  <div class="col-8 col-md-3 checkoutBkground"></div>
-                  <div class="col-4 col-md-6">
-                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
-                      <div class="col">
-                        <div class="row flex-column ">
-                          <div class="col h5"><span>抹茶馬卡龍</span></div>
-                          <div class="col h5"><span>(2)</span></div>
-                          <div class="col"><span>N$450</span></div>
-                        </div>
-                      </div>
-                    </div>
 
-                  </div>
-                </div>
               </div>
             </div>
           </div>

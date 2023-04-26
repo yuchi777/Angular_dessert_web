@@ -11,7 +11,7 @@ export class CartComponent {
   //icon
   faTrash = faTrash ;
   cartItem!: any[];
-  fare: number = 100;
+  fare: number = 0;
   total!:number;
 
   constructor(public datasvc: DataService,private router: Router,){
@@ -26,26 +26,31 @@ export class CartComponent {
       this.cartItem = data.data;
       console.log('cartItem',this.cartItem);
 
-      this.cartItem = this.cartItem.map((item)=>{
-        return {
-          "productId": item[0],
-          "orderQuantity": item[1],
-          "name": item[2],
-          "price": item[3],
-          "inventories": item[4],
-          "img": item[5],
-        }
-      })
-      // this.cartItem = newItem;
-      // console.log('newItem',newItem);
-      // console.log('newItem_price',newItem.map((item)=>{
-      //   return item.price * item.orderQuantity;
-      // }));
-      this.total = this.cartItem.map((item)=>{
-        return item.price * item.orderQuantity;
-      }).reduce((a,b)=>a+b)
-      // console.log('itemPrice',this.total)
+      if(data.data == undefined){
+        alert('購物車為空')
+      }else{
+        this.fare = 100 ;
+        this.cartItem = this.cartItem.map((item)=>{
+          return {
+            "productId": item[0],
+            "orderQuantity": item[1],
+            "name": item[2],
+            "price": item[3],
+            "inventories": item[4],
+            "img": item[5],
+          }
+        })
+        // this.cartItem = newItem;
+        // console.log('newItem',newItem);
+        // console.log('newItem_price',newItem.map((item)=>{
+        //   return item.price * item.orderQuantity;
+        // }));
+        this.total = this.cartItem.map((item)=>{
+          return item.price * item.orderQuantity;
+        }).reduce((a,b)=>a+b)
+        // console.log('itemPrice',this.total)
 
+      }
     })
   }
 
@@ -74,6 +79,7 @@ export class CartComponent {
             "img": item[5],
           }
         });
+        //加總購物車項目金額
         this.total = this.cartItem.map((item)=>{
           return item.price * item.orderQuantity;
         }).reduce((a,b)=>a+b)
@@ -107,6 +113,7 @@ export class CartComponent {
             "img": item[5],
           }
         });
+        //加總購物車項目金額
         this.total = this.cartItem.map((item)=>{
           return item.price * item.orderQuantity;
         }).reduce((a,b)=>a+b)
@@ -146,6 +153,7 @@ export class CartComponent {
             "img": item[5],
           }
         });
+        //加總購物車項目金額
         this.total = this.cartItem.map((item)=>{
           return item.price * item.orderQuantity;
         }).reduce((a,b)=>a+b)
@@ -165,19 +173,32 @@ export class CartComponent {
     setTimeout(() => {
       this.datasvc.getUserCart().subscribe((data)=>{
         console.log('重新加載數量');
-        this.cartItem = data.data.map((item: any[])=>{
-          return {
-            "productId": item[0],
-            "orderQuantity": item[1],
-            "name": item[2],
-            "price": item[3],
-            "inventories": item[4],
-            "img": item[5],
-          }
-        });
-        this.total = this.cartItem.map((item)=>{
-          return item.price * item.orderQuantity;
-        }).reduce((a,b)=>a+b)
+
+        if(data.data == undefined){
+          this.cartItem = [];
+          this.total = 0 ;
+          this.fare = 0;
+          alert('購物車為空')
+        }else{
+
+          this.cartItem = data.data.map((item: any[])=>{
+            return {
+              "productId": item[0],
+              "orderQuantity": item[1],
+              "name": item[2],
+              "price": item[3],
+              "inventories": item[4],
+              "img": item[5],
+            }
+          });
+
+          //加總購物車項目金額
+          this.total = this.cartItem.map((item)=>{
+            return item.price * item.orderQuantity;
+          }).reduce((a,b)=>a+b)
+        }
+
+
 
       })
     }, 50);

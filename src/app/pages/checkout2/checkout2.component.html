@@ -19,24 +19,56 @@
             </div>
             <div class="row g-3 mx-2 px-2">
               <button
-                class="rounded-0 col form-control checkoutInput d-flex align-items-center justify-content-center">電子發票</button>
+                class="rounded-0 col form-control checkoutInput d-flex align-items-center justify-content-center" [ngClass]="{'checkoutInput' : item, 'checkoutInput-2 ': !item}" (click)="tabClick()">電子發票</button>
               <button
-                class="rounded-0 col form-control checkoutInput-2 d-flex align-items-center justify-content-center">郵寄發票</button>
+                class="rounded-0 col form-control checkoutInput-2 d-flex align-items-center justify-content-center" [ngClass]="{'checkoutInput-2' : item, 'checkoutInput' : !item}" (click)="tabClick()">郵寄發票</button>
             </div>
 
-            <form class="row g-3 mx-2">
+            <form class="row g-3 mx-2"  [formGroup]="form" (ngSubmit)="submit()">
               <div class="col-12">
                 <label for="phone" class="form-label text-white">電子郵件信箱</label>
-                <input type="text" class="form-control checkoutInput" id="phone" placeholder="example@email.com">
+                <input
+                type="text"
+                class="form-control checkoutInput"
+                id="email"
+                placeholder="example@email.com"
+                [(ngModel)]="delivery.email"
+                formControlName="email"
+                >
+                <span *ngIf="form.controls['email'].touched && !form.controls['email'].valid" class="text-white">
+                  Email is required
+                </span>
+                <span *ngIf="form.controls['email'].errors?.['email']" class="mx-1 text-white">
+                  Email address error
+                </span>
               </div>
               <div class="col-12">
                 <label for="address" class="form-label text-white">統一編號(選填)</label>
-                <input type="text" class="form-control checkoutInput" id="address" placeholder="12345678">
+                <input
+                type="text"
+                class="form-control checkoutInput"
+                id="companyNumber"
+                placeholder="12345678"
+                [(ngModel)]="delivery.companyNumber"
+                formControlName="companyNumber"
+                >
+                <span *ngIf="form.controls['companyNumber'].touched && !form.controls['companyNumber'].valid" class="text-white">
+                  Enter Error
+                </span>
+                <span *ngIf="form.controls['companyNumber'].errors?.['minlength']" class="mx-1 text-white">
+                  minlength Error
+                </span>
               </div>
             </form>
 
-
-            <a routerLink="/success" type="submit" class="py-3 btn btn-warning text-secondary w-100 rounded-0">下一步</a>
+            <button
+            [disabled]="!form.valid"
+            type="submit"
+            class="py-3 btn btn-warning text-secondary rounded-0"
+            (click)="submit()"
+            >
+              結帳
+            </button>
 
 
 
@@ -50,15 +82,15 @@
                 </div>
                 <div class="d-flex justify-content-between lh-lg">
                   <span>小計</span>
-                  <span>NT$2700</span>
+                  <span>{{total | currency:'TWD':'symbol':'1.0'}}</span>
                 </div>
                 <div class="d-flex justify-content-between lh-lg">
                   <span>運費</span>
-                  <span>NT$300</span>
+                  <span>{{fare | currency:'TWD':'symbol':'1.0'}}</span>
                 </div>
                 <div class="d-flex justify-content-between h5 lh-lg">
                   <span>總計</span>
-                  <span>NT$3000</span>
+                  <span>{{total+fare | currency:'TWD':'symbol':'1.0'}}</span>
                 </div>
               </div>
 
@@ -66,49 +98,26 @@
                 <div class="text-center py-2 mb-2 checkoutRight-color">
                   <div class="h4 my-auto">購物清單</div>
                 </div>
-                <div class="py-1 mb-2 row align-items-center justify-content-between">
-                  <div class="col-8 col-md-3 checkoutBkground"></div>
-                  <div class="col-4 col-md-6">
-                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
-                      <div class="col">
-                        <div class="row flex-column ">
-                          <div class="col h5"><span>抹茶馬卡龍</span></div>
-                          <div class="col h5"><span>(2)</span></div>
-                          <div class="col"><span>N$450</span></div>
+                <div *ngFor="let item of cartItem">
+                  <div class="py-1 mb-2 row align-items-center justify-content-between">
+                    <div class="col-8 col-md-5 checkoutBkground"
+                      style="background-image: url('data:image/jpg;base64,{{item.img}}')"></div>
+                    <!-- http://fakeimg.pl/200x200/ -->
+                    <!-- data:image/jpg;base64,{{item.img}} -->
+                    <div class="col-4 col-md-6">
+                      <div class="row flex-column flex-md-row ps-1 ps-md-0">
+                        <div class="col">
+                          <div class="row flex-column ">
+                            <div class="col h5"><span>{{item.name}}</span></div>
+                            <div class="col h5"><span>({{item.orderQuantity}})</span></div>
+                            <div class="col"><span>{{item.price| currency:'TWD':'symbol':'1.0'}}</span></div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="py-1 mb-2 row align-items-center justify-content-between">
-                  <div class="col-8 col-md-3 checkoutBkground"></div>
-                  <div class="col-4 col-md-6">
-                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
-                      <div class="col">
-                        <div class="row flex-column ">
-                          <div class="col h5"><span>抹茶馬卡龍</span></div>
-                          <div class="col h5"><span>(2)</span></div>
-                          <div class="col"><span>N$450</span></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="py-1 mb-2 row align-items-center justify-content-between">
-                  <div class="col-8 col-md-3 checkoutBkground"></div>
-                  <div class="col-4 col-md-6">
-                    <div class="row flex-column flex-md-row ps-1 ps-md-0">
-                      <div class="col">
-                        <div class="row flex-column ">
-                          <div class="col h5"><span>抹茶馬卡龍</span></div>
-                          <div class="col h5"><span>(2)</span></div>
-                          <div class="col"><span>N$450</span></div>
-                        </div>
-                      </div>
-                    </div>
 
-                  </div>
-                </div>
               </div>
             </div>
           </div>

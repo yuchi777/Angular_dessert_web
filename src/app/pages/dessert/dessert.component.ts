@@ -324,16 +324,6 @@ export class DessertComponent {
 
   add(e: any) {
 
-    // {
-    //   fieldIndex
-    //   productId:0
-    //   orderQuantity:1
-    //   name:2
-    //   price:3
-    //   inventories:4
-    //   img:5
-    // }
-
     //取得產品ID
     let productId = e.target.id;
 
@@ -346,32 +336,37 @@ export class DessertComponent {
 
       let carData = data.data;
 
+      if( carData == undefined){
+        //新增購物車產品數量
+        this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
+          //counter打回去
+          alert(`新增成功商品ID-${productId}成功, 購物車有${this.counter}件`)
+          console.log('addUserCart', data)
+          this.counter = 1;
+        })
+      }else{
+        carData.forEach((e: any[]) => {
+          if (e[0] == productId && e[1].length > 0) {
+            console.log('已經在購物車裡');
+            console.log('已有產品數量', e[1]);
+            console.log('name', e[2]);
+
+            //counter+已有數量
+            this.counter = this.counter + parseInt(e[1]);
+            console.log('增加後數量', this.counter)
+
+            //新增購物車產品數量
+            this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
+              //counter打回去
+              alert(`新增成功商品ID-${productId}成功, 購物車有${this.counter}件`)
+              console.log('addUserCart', data)
+              this.counter = 1;
+            })
+          }
+        })
 
 
-      carData.forEach((e: any[]) => {
-
-
-        if (e[0] == productId && e[1].length > 0) {
-          console.log('已經在購物車裡');
-          console.log('已有產品數量', e[1]);
-          console.log('name', e[2]);
-
-          //counter+已有數量
-          this.counter = this.counter + parseInt(e[1]);
-          console.log('增加後數量', this.counter)
-
-          //新增購物車產品數量
-          this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
-            //counter打回去
-            alert(`新增成功商品ID-${productId}成功, 購物車有${this.counter}件`)
-            console.log('addUserCart', data)
-            this.counter = 1;
-          })
-        }
-      })
-
-
-      //確認購物車有無點選產品
+        //確認購物車有無點選產品
       let chkProductId = carData.every((e: any[]) => {
         return e[0] !== productId
       });
@@ -387,6 +382,12 @@ export class DessertComponent {
           this.counter = 1;
         })
       }
+      }
+
+
+
+
+
 
 
 

@@ -18,38 +18,107 @@
 
             </div>
 
-            <form class="row g-3 mx-2 mb-3">
-              <div class="col-6 col-md-6">
+            <form class="row g-3 mx-2 mb-3" [formGroup]="form" (ngSubmit)="submit()">
+              <div class="col-6 col-md-6 form-group">
                 <label for="lastname" class="form-label text-white">姓氏</label>
-                <input type="text" class="form-control checkoutInput" id="lastname" placeholder="王">
+                <input
+                type="text"
+                class="form-control checkoutInput"
+                id="lastName"
+                placeholder="王"
+                [(ngModel)]="delivery.lastName"
+                formControlName="lastName"
+                >
+                <span *ngIf="form.controls['lastName'].touched && !form.controls['lastName'].valid" class="text-white">
+                  Last Name is required
+                </span>
               </div>
-              <div class="col-6 col-md-6">
+              <div class="col-6 col-md-6 form-group">
                 <label for="firstname" class="form-label text-white">名字</label>
-                <input type="text" class="form-control checkoutInput" id="firstname" placeholder="小名">
+                <input
+                type="text"
+                class="form-control checkoutInput"
+                id="firstname"
+                placeholder="小名"
+                [(ngModel)]="delivery.firstName"
+                formControlName="firstName"
+                >
+                <span *ngIf="form.controls['firstName'].touched && !form.controls['firstName'].valid" class="text-white">
+                  First Name is required
+                </span>
               </div>
-              <div class="col-12">
+              <div class="col-12 form-group">
                 <label for="phone" class="form-label text-white">電話</label>
-                <input type="text" class="form-control checkoutInput" id="phone" placeholder="0912345678">
+                <input
+                type="text"
+                class="form-control checkoutInput"
+                id="phone"
+                placeholder="0912345678"
+                [(ngModel)]="delivery.phoneNumber"
+                formControlName="phoneNumber"
+                minlength="10"
+                onkeyup="value=this.value.replace(/\D+/g,'')"
+                >
+                <span *ngIf="form.controls['phoneNumber'].touched && !form.controls['phoneNumber'].valid" class="mx-1 text-white">
+                  Phone Number is required
+                </span>
+                <span *ngIf="form.controls['phoneNumber'].errors?.['minlength']" class="mx-1 text-white">
+                  Minlength is 10
+                </span>
               </div>
               <div class="col-6 col-md-6">
                 <label for="inputCity" class="form-label text-white">縣市</label>
-                <input type="text" class="form-control checkoutInput" id="inputCity" placeholder="高雄市">
+                <input
+                type="text"
+                class="form-control checkoutInput"
+                id="inputCity"
+                placeholder="高雄市"
+                [(ngModel)]="delivery.city"
+                formControlName="city"
+                >
+                <span *ngIf="form.controls['city'].touched && !form.controls['city'].valid" class="text-white">
+                  City name is required
+                </span>
               </div>
               <div class="col-6 col-md-6">
-                <label for="inputState" class="form-label text-white">區域</label>
-                <select id="inputState" class="form-select checkoutInput">
-                  <option selected>新興區</option>
-                  <option>...</option>
-                </select>
+                <label for="inputCity" class="form-label text-white">區域</label>
+                <input
+                type="text"
+                class="form-control checkoutInput"
+                id="inputRegion"
+                placeholder="楠子區"
+                [(ngModel)]="delivery.region"
+                formControlName="region"
+                >
+                <span *ngIf="form.controls['region'].touched && !form.controls['region'].valid" class="text-white">
+                  Region name is required
+                </span>
               </div>
               <div class="col-12">
                 <label for="address" class="form-label text-white">地址</label>
-                <input type="text" class="form-control checkoutInput" id="address" placeholder="請輸入地址">
+                <input
+                type="text"
+                class="form-control checkoutInput"
+                id="address"
+                placeholder="請輸入地址"
+                [(ngModel)]="delivery.address"
+                formControlName="address"
+                >
+                <span *ngIf="form.controls['address'].touched && !form.controls['address'].valid" class="text-white">
+                  Address is required
+                </span>
               </div>
             </form>
+            <button
+            [disabled]="!form.valid"
+            type="submit"
+            class="py-3 btn btn-warning text-secondary rounded-0"
+            (click)="submit()"
+            >
+              下一步
+            </button>
 
 
-              <a routerLink="/checkout1" type="submit" class="py-3 btn btn-warning text-secondary w-100 rounded-0">下一步</a>
 
 
 
@@ -82,7 +151,8 @@
 
                 <div *ngFor="let item of cartItem">
                   <div class="py-1 mb-2 row align-items-center justify-content-between">
-                    <div class="col-8 col-md-5 checkoutBkground" style="background-image: url('http://fakeimg.pl/100x100/')"></div>
+                    <div class="col-8 col-md-5 checkoutBkground"
+                      style="background-image: url('data:image/jpg;base64,{{item.img}}')"></div>
                     <!-- http://fakeimg.pl/200x200/ -->
                     <!-- data:image/jpg;base64,{{item.img}} -->
                     <div class="col-4 col-md-6">

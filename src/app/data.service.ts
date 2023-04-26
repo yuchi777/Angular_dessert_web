@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable,map  } from 'rxjs';
+import { Observable, map } from 'rxjs';
 // 利用 Rxjs BehaviorSubject 觀察與訂閱的特性處理非直接父子元件之間的資料溝通
 import { BehaviorSubject } from 'rxjs';
 import jwt_decode from 'jwt-decode';
@@ -19,8 +19,8 @@ export interface Api {
   price: string,
   name: string
 
-  username:string,
-  password:string,
+  username: string,
+  password: string,
 
 }
 
@@ -30,7 +30,7 @@ export interface Api {
 })
 export class DataService {
 
-  data:any;
+  data: any;
   adminToken = localStorage.getItem('adminToken');
 
   constructor(private http: HttpClient) {
@@ -133,15 +133,15 @@ export class DataService {
     })
   }
 
-  login(_loginInfo: { username: any; password?: string; }){
+  login(_loginInfo: { username: any; password?: string; }) {
 
     switch (_loginInfo.username) {
       case 'admin':
-        return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/adminLogin',_loginInfo)
+        return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/adminLogin', _loginInfo)
         break;
 
       default:
-        return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/login',_loginInfo)
+        return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/login', _loginInfo)
         break;
     }
 
@@ -149,53 +149,66 @@ export class DataService {
 
 
 
-  addUserCart(productId:number,counter:number){
+  addUserCart(productId: number, counter: number) {
     const token = localStorage.getItem('token');
-    return this.http.post('http://presale.money-link.com.tw/sweetApi/addUserCart',{
+    return this.http.post('http://presale.money-link.com.tw/sweetApi/addUserCart', {
       "token": token,
       "productId": productId,
       // "orderQuantity":counter,
-      "orderQuantity":1,
+      "orderQuantity": 1,
     })
   }
 
-  getUserCart(){
-    const token:any = localStorage.getItem('token');
-    const adminToken:any = localStorage.getItem('adminToken');
-    console.log('getusercartToken',token);
-    console.log('getusercartToken',jwt_decode(token));
-    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getUserCart',{
+  getUserCart() {
+    const token: any = localStorage.getItem('token');
+    const adminToken: any = localStorage.getItem('adminToken');
+    console.log('getusercartToken', token);
+    console.log('getusercartToken', jwt_decode(token));
+    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getUserCart', {
       "token": token
     })
   }
 
-  updateUserCart(productId:number,counter:number){
+  updateUserCart(productId: number, counter: number) {
     const token = localStorage.getItem('token');
-    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/updateUserCart',{
+    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/updateUserCart', {
       "token": token,
       "productId": productId,
-      "orderQuantity":counter
+      "orderQuantity": counter
     })
   }
 
-  deleteFromUserCart(productId:number){
+  deleteFromUserCart(productId: number) {
     const token = localStorage.getItem('token');
-    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/deleteUserCart',{
+    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/deleteUserCart', {
       "token": token,
       "productId": productId
     })
   }
 
   //檢查庫存
-  batchUpdateUserCartQuantity(_checkProduct:{ productId: number ; orderQuantity:number}){
+  batchUpdateUserCartQuantity(_checkProduct: { productId: number; orderQuantity: number }) {
     const token = localStorage.getItem('token');
-    console.log('_checkProduct',_checkProduct)
-    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/batchUpdateUserCart',{
+    console.log('_checkProduct', _checkProduct)
+    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/batchUpdateUserCart', {
       "token": token,
       "userCarts": _checkProduct
     })
   }
 
+
+  checkoutUserCart() {
+    const token = localStorage.getItem('token');
+    const receiverName = localStorage.getItem('receiverName');
+    const toreceiverPhoneken = localStorage.getItem('receiverPhone');
+    const receiverAddress = localStorage.getItem('receiverAddress');
+    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/checkoutUserCart', {
+      "token": token,
+      "receiverName": receiverName,
+      "receiverPhone": toreceiverPhoneken,
+      "receiverAddress": receiverAddress
+    })
+  }
 
 
 
@@ -207,7 +220,7 @@ export class DataService {
   providedIn: 'root',
 })
 export class LandRecordService {
-  constructor() {}
+  constructor() { }
 
   // 提供訂閱服務 - landRecord
   public landRecord = new BehaviorSubject<any>('');
@@ -215,7 +228,7 @@ export class LandRecordService {
 
   // 寫入 landRecord$
   setLandRecord(value: any): void {
-      this.landRecord.next(value);
+    this.landRecord.next(value);
   }
 }
 
