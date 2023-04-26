@@ -31,7 +31,6 @@ export interface Api {
 export class DataService {
 
   data:any;
-
   adminToken = localStorage.getItem('adminToken');
 
   constructor(private http: HttpClient) {
@@ -135,6 +134,7 @@ export class DataService {
   }
 
   login(_loginInfo: { username: any; password?: string; }){
+
     switch (_loginInfo.username) {
       case 'admin':
         return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/adminLogin',_loginInfo)
@@ -161,6 +161,7 @@ export class DataService {
 
   getUserCart(){
     const token:any = localStorage.getItem('token');
+    const adminToken:any = localStorage.getItem('adminToken');
     console.log('getusercartToken',token);
     console.log('getusercartToken',jwt_decode(token));
     return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getUserCart',{

@@ -3,6 +3,8 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { LandRecordService } from '../data.service';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
+import { DataService } from '../data.service';
+
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -19,7 +21,12 @@ export class NavBarComponent {
   //token
   token:any;
 
-  constructor(private landRecordService: LandRecordService,private router: Router,){
+
+  constructor(
+    private landRecordService: LandRecordService,
+    private router: Router,
+    public datasvc: DataService,
+  ){
 
   }
 
@@ -34,8 +41,8 @@ export class NavBarComponent {
     this.landRecordRxjs = this.landRecordService.landRecord$.subscribe((resp) => {
         // 更新總筆數
         this.landRecords = resp;
+        console.log('landRecords',this.landRecords);
     });
-    console.log('landRecords',this.landRecords);
   }
 
 
