@@ -66,6 +66,7 @@ export class CartComponent {
     this.datasvc.updateUserCart(productId[1],counter).subscribe((re)=>{
       console.log('re',re)
     })
+    
     setTimeout(() => {
       this.datasvc.getUserCart().subscribe((data)=>{
         console.log('重新加載數量');

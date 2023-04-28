@@ -22,6 +22,7 @@ export class NavBarComponent {
   token:any;
 
 
+
   constructor(
     private landRecordService: LandRecordService,
     private router: Router,
@@ -43,7 +44,12 @@ export class NavBarComponent {
         this.landRecords = resp;
         console.log('landRecords',this.landRecords);
     });
+
+
   }
+
+
+
 
 
   // 取消訂閱 landRecord$
@@ -54,7 +60,7 @@ export class NavBarComponent {
   logout(){
     this.landRecords = false;
     localStorage.removeItem('token');
-    console.log('localStorage token 已清除')
+    console.log('localStorage token 已清除');
     this.router.navigate(['/login'])
     // window.location.reload();
   }

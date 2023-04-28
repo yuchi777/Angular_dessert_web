@@ -51,6 +51,9 @@ export class DessertComponent {
   pageSizelegend = 6;
 
 
+  //all product
+  getAll =new Array();
+  getAllLength!: number;
 
   // public data = [{
   //   "id": 1,
@@ -302,23 +305,51 @@ export class DessertComponent {
       // this.totalItems = data.data.length;
     })
 
+
     this.datasvc.getProductsByTypeId(1).subscribe((data) => {
-      // console.log('getApiData', data.data);
+      console.log('getApiData', data.data);
       this.dataFeatured = data.data;
       this.dataFeaturedLength = data.data.length;
+
+      this.dataFeatured.map((item)=>{
+        this.getAll.push(item)
+      })
+      // console.log('getall',this.getAll)
     })
     this.datasvc.getProductsByTypeId(2).subscribe((data) => {
       this.dataRecommend = data.data;
       this.dataRecommendLength = data.data.length;
+
+      this.dataRecommend.map((item)=>{
+        this.getAll.push(item)
+      })
+      // console.log('getall',this.getAll)
     })
     this.datasvc.getProductsByTypeId(3).subscribe((data) => {
       this.dataNewArrival = data.data;
       this.dataNewArrivalLength = data.data.length;
+
+      this.dataNewArrival.map((item)=>{
+        this.getAll.push(item)
+      })
+      // console.log('getall',this.getAll)
     })
     this.datasvc.getProductsByTypeId(4).subscribe((data) => {
       this.legend = data.data;
       this.legendLength = data.data.length;
+
+      this.legend.map((item)=>{
+        this.getAll.push(item)
+      })
+      console.log('getall',this.getAll)
+
+
+      //長度確認!!!!!
+      this.getAllLength = this.getAll.length;
+      console.log('getAllLength',this.getAllLength)
     })
+
+
   }
 
 
@@ -383,25 +414,12 @@ export class DessertComponent {
         })
       }
       }
-
-
-
-
-
-
-
-
-
     })
   }
 
 
 
 
-
-  //檢查庫存邏輯(結帳時)
-  //batchUpdateUserCartQuantity()
-  //若太少告警
 
 
 }
