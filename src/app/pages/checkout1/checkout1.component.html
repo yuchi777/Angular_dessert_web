@@ -22,20 +22,21 @@
               <div class="col-12 form-Group">
                 <label for="cardnumber" class="form-label text-white">信用卡號</label>
                 <input
-                type="text"
                 class="form-control checkoutInput"
                 id="cardnumber"
+                type="text"
                 placeholder="1232-1231-1231-1231"
                 [(ngModel)]="delivery.cardNumber"
                 formControlName="cardNumber"
                 minlength="16"
+                oninput="if(value.length>=16)value=value.slice(0,16); value=value.replace(/[^\d]/g,'')"
                 >
                 <span *ngIf="form.controls['cardNumber'].touched && !form.controls['cardNumber'].valid" class="mx-1 text-white">
-                  Credit Card Number is required
+                  請輸入信用卡16位號碼
                 </span>
-                <span *ngIf="form.controls['cardNumber'].errors?.['minlength']" class="mx-1 text-white">
+                <!-- <span *ngIf="form.controls['cardNumber'].errors?.['minlength']" class="mx-1 text-white">
                   Minlength is 16
-                </span>
+                </span> -->
               </div>
               <div class="col-6 col-md-6">
                 <label for="lastname" class="form-label text-white">持卡人姓氏</label>
@@ -48,7 +49,7 @@
                 formControlName="lastName"
                 >
                 <span *ngIf="form.controls['lastName'].touched && !form.controls['lastName'].valid" class="mx-1 text-white">
-                  Last Name is required
+                  請輸入姓氏
                 </span>
               </div>
               <div class="col-6 col-md-6">
@@ -62,7 +63,7 @@
                 formControlName="firstName"
                 >
                 <span *ngIf="form.controls['firstName'].touched && !form.controls['firstName'].valid" class="mx-1 text-white">
-                  First Name is required
+                  請輸入名子
                 </span>
               </div>
 
@@ -77,9 +78,11 @@
                 formControlName="month"
                 min="1"
                 max="12"
+                step="1"
+                oninput="if(value>12)value=12;if(value.length>2)value=value.slice(0,2);if(value<1)value=1"
                 >
                 <span *ngIf="form.controls['month'].touched && !form.controls['month'].valid" class="mx-1 text-white">
-                  Expiry Month Error
+                  請輸入月份
                 </span>
               </div>
               <div class="col-6 col-md-6">
@@ -94,16 +97,16 @@
                 min="2023"
                 max="2030"
                 step="1"
-                value="2023"
+                oninput="if(value>2030)value=2030;if(value.length>4)value=value.slice(0,4);"
                 >
                 <span *ngIf="form.controls['year'].touched && !form.controls['year'].valid" class="mx-1 text-white">
-                  Expiry Year Error
+                  請輸入年份從2023年開始
                 </span>
               </div>
               <div class="col-12">
                 <label for="exp" class="form-label text-white">安全碼</label>
                 <input
-                type="number"
+                type="text"
                 class="form-control checkoutInput"
                 id="exp"
                 placeholder="123"
@@ -112,10 +115,15 @@
                 min="0"
                 max="999"
                 step="1"
+                minlength="3"
+                oninput="if(value.length>3)value=value.slice(0,3); value=value.replace(/[^\d]/g,'') "
                 >
                 <span *ngIf="form.controls['code'].touched && !form.controls['code'].valid" class="mx-1 text-white">
-                  Security Code Error
+                  請輸入安全碼3位數字
                 </span>
+                <!-- <span *ngIf="form.controls['code'].errors?.['minlength']" class="mx-1 text-white">
+                  error
+                </span> -->
               </div>
             </form>
 

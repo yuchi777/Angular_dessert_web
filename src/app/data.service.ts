@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 
 export interface Api {
+  fieldIndex: any;
   status: any;
   data: any;
   items: any;
@@ -113,15 +114,17 @@ export class DataService {
   }
 
 
+  getProductsByType(){
+    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getAllProductType',{})
+  }
+
 
 
   // presale.money-link.com.tw
   // 'http://presale.money-link.com.tw/sweetApi/getProductsByTypeId',{ "typeId" : 2}
-  // https://api.github.com/search/users?q=mike
 
   getProductsByTypeId(_typeId: any): Observable<Api> {
     return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getProductsByTypeId', { "typeId": _typeId });
-    // return this.http.get<Api>('https://api.github.com/search/users?q=mike');
 
   }
 
@@ -162,7 +165,7 @@ export class DataService {
   getUserCart() {
     const token: any = localStorage.getItem('token');
     const adminToken: any = localStorage.getItem('adminToken');
-    console.log('getusercartToken', token);
+    // console.log('getusercartToken', token);
     console.log('getusercartToken', jwt_decode(token));
     return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getUserCart', {
       "token": token

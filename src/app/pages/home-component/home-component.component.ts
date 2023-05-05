@@ -28,11 +28,9 @@ export class HomeComponentComponent {
     //   console.log('http_re_values', Object.values(result)[2]);
     //   console.log('http_re_typeof', typeof(result));
     //   console.log('http_re', result);
-
     // })
 
     this.datasvc.getProductsByTypeId(1).subscribe((data)=>{
-      console.log('getApiData',data.data);
       this.dataFeatured = data.data;
     })
     this.datasvc.getProductsByTypeId(2).subscribe((data)=>{

@@ -40,9 +40,9 @@ export class NavBarComponent {
 
     // 訂閱 landRecord$
     this.landRecordRxjs = this.landRecordService.landRecord$.subscribe((resp) => {
-        // 更新總筆數
+        // 更新狀態
         this.landRecords = resp;
-        console.log('landRecords',this.landRecords);
+        // console.log('landRecords',this.landRecords);
     });
 
 

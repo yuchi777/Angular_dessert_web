@@ -7,39 +7,162 @@
 
   <section>
     <div class="container">
+
       <div class="row">
         <div class="col-md-4">
+          <div class="list-group text-center">
+            <span class="dessert-list list-group-item list-group-item-action theme-1">甜點類別</span>
+            <!-- <div>
+              <span
+              class="dessert-list list-group-item list-group-item-action nav-link"
+              data-bs-toggle="tab"
+              [attr.data-bs-target]="'#target-all'"
+              id="alltype"
+              (click)="getAllData($event)"
+              role="tab"
+              >
+                所有種類
+              </span>
+            </div> -->
 
-          <ul class=" list-group text-center mb-3">
-            <li class="dessert-list list-group-item list-group-item-action theme-1">甜點類別</li>
-            <li class="dessert-list list-group-item list-group-item-action nav-link active" data-bs-toggle="pill"
-              data-bs-target="#all" role="presentation" id="pills-home-tab">
-              所有甜點({{getAll.length}})
-            </li>
-            <li class="dessert-list list-group-item list-group-item-action nav-link " data-bs-toggle="pill"
-              data-bs-target="#featured" role="presentation" id="pills-home-tab">
-              本日精選({{dataFeaturedLength}})
-            </li>
-            <li class="dessert-list list-group-item list-group-item-action nav-link " data-bs-toggle="pill"
-              data-bs-target="#recommend" role="presentation" id="pills-home-tab">
-              人氣推薦({{dataRecommendLength}})
-            </li>
-            <li class="dessert-list list-group-item list-group-item-action nav-link " data-bs-toggle="pill"
-              data-bs-target="#newArrival" role="presentation" id="pills-home-tab">
-              新品上市({{dataNewArrivalLength}})
-            </li>
-            <li class="dessert-list list-group-item list-group-item-action nav-link " data-bs-toggle="pill"
-              data-bs-target="#legend" role="presentation" id="pills-home-tab">
-              絕版品({{legendLength}})
-            </li>
-          </ul>
+            <div *ngFor="let item of getAllType">
+              <span class="dessert-list list-group-item list-group-item-action nav-link" data-bs-toggle="tab"
+                [attr.data-bs-target]="'#target-' + item[fieldIndex.typeId]" id="{{item[fieldIndex.typeId]}}"
+                (click)="getData($event)" role="tab">
+                {{ item[fieldIndex.chinese] }}
+              </span>
+            </div>
+          </div>
         </div>
 
 
         <div class="col-md-8">
 
-          <!-- ngx-pagination 方式 -->
-          <!-- <div class="tab-content" id="pills-tabContent">
+          <div class="tab-content" id="pills-tabContent">
+
+            <!-- <div class="row">
+              <div
+                class="p-0 m-2 col-5 card tab-pane fade show active"
+                *ngFor="let item of getTotal | slice: (pageAll-1) * pageSizeAll : (pageAll-1) * pageSizeAll + pageSizeAll"
+                id="target-all"
+                role="tabpanel">
+                <img src="data:image/jpg;base64,{{item[dataFieldIndex.img]}}" class="card-img-top cardImg">
+                <span class="tag">{{item[6][1]}}</span>
+                <i class="fa-regular fa-heart"></i>
+                <div class="card-body h5 row justify-content-center">
+                  <span class="col text-center border-end">{{item[dataFieldIndex.name]}}</span>
+                  <span class="col text-center fw-bold">NTD{{item[dataFieldIndex.price]}}</span>
+                </div>
+                <a class="btn btn-lg" id="{{item[dataFieldIndex.productId]}}" (click)="add($event)">加入購物車</a>
+              </div>
+
+
+              <div class="row my-3">
+                <div class="col-12 d-flex justify-content-center">
+                  <ngb-pagination class="pagination pagination-lg" [(page)]="pageAll" [pageSize]="pageSizeAll"
+                    [collectionSize]="getTotal.length"></ngb-pagination>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="row" *ngIf="data.length>0; else anotherWord">
+
+              <div class="p-0 m-2 col-5 card tab-pane fade show active"
+                *ngFor="let item of data | slice: (pageAll-1) * pageSizeAll : (pageAll-1) * pageSizeAll + pageSizeAll"
+                id="target-{{dataId}}" role="tabpanel">
+                <img src="data:image/jpg;base64,{{item[dataFieldIndex.img]}}" class="card-img-top cardImg">
+                <span class="tag">{{dataLabel}}</span>
+                <i class="fa-regular fa-heart"></i>
+                <div class="card-body h5 row justify-content-center">
+                  <span class="col text-center border-end">{{item[dataFieldIndex.name]}}</span>
+                  <span class="col text-center fw-bold">NTD{{item[dataFieldIndex.price]}}</span>
+                </div>
+                <a class="btn btn-lg" id="{{item[dataFieldIndex.productId]}}" (click)="add($event)">加入購物車</a>
+              </div>
+
+
+              <div class="row my-3">
+                <div class="col-12 d-flex justify-content-center">
+                  <ngb-pagination class="pagination pagination-lg" [(page)]="pageAll" [pageSize]="pageSizeAll"
+                    [collectionSize]="data.length"></ngb-pagination>
+                </div>
+              </div>
+
+
+
+            </div>
+
+            <ng-template #anotherWord>
+              <h3>無資料</h3>
+            </ng-template>
+
+
+
+
+            <!-- <div class="tab-pane fade show active" id="all" role="tabpanel">
+              <div class="row">
+                <div class="col-lg-6 mb-3"
+                  *ngFor="let item of getTotal | slice: (pageAll-1) * pageSizeAll : (pageAll-1) * pageSizeAll + pageSizeAll ; let idx = 'index'">
+                  <div class="card" id="post{{idx}}">
+                    <img src="data:image/jpg;base64,{{item[dataFieldIndex.img]}}" class="card-img-top cardImg">
+                    <span class="tag">{{item[6][1]}}</span>
+                    <i class="fa-regular fa-heart"></i>
+                    <div class="card-body h5 row justify-content-center">
+                      <span class="col text-center border-end">{{item[dataFieldIndex.name]}}</span>
+                      <span class="col text-center fw-bold">NTD{{item[dataFieldIndex.price]}}}</span>
+                    </div>
+                    <a class="btn btn-lg" id="{{item[dataFieldIndex.productId]}}" (click)="add($event)">加入購物車</a>
+                  </div>
+                </div>
+              </div>
+              <div class="row my-3">
+                <div class="col-12 d-flex justify-content-center">
+                  <ngb-pagination class="pagination pagination-lg" [(page)]="pageAll" [pageSize]="pageSizeAll"
+                    [collectionSize]="getTotal.length"></ngb-pagination>
+                </div>
+              </div>
+            </div> -->
+
+
+            <!-- <div class="tab-pane fade" id="all" role="tabpanel">
+              <div class="row">
+                <div class="col-lg-6 mb-3"
+                  *ngFor="let item of dataEach | slice: (pageAll-1) * pageSizeAll : (pageAll-1) * pageSizeAll + pageSizeAll ; let idx = 'index'">
+                  <div class="card" id="target-{{dataId}}">
+                    <img src="data:image/jpg;base64,{{item[dataFieldIndex.img]}}" class="card-img-top cardImg">
+                    <span class="tag">所有甜點</span>
+                    <i class="fa-regular fa-heart"></i>
+                    <div class="card-body h5 row justify-content-center">
+                      <span class="col text-center border-end">{{item[dataFieldIndex.name]}}</span>
+                      <span class="col text-center fw-bold">NTD{{item[dataFieldIndex.price]}}}</span>
+                    </div>
+                    <a class="btn btn-lg" id="{{item[dataFieldIndex.productId]}}" (click)="add($event)">加入購物車</a>
+                  </div>
+                </div>
+              </div>
+              <div class="row my-3">
+                <div class="col-12 d-flex justify-content-center">
+                  <ngb-pagination class="pagination pagination-lg" [(page)]="pageAll" [pageSize]="pageSizeAll"
+                    [collectionSize]="dataEach.length"></ngb-pagination>
+                </div>
+              </div>
+            </div> -->
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+
+
+
+
+<!-- ngx-pagination 方式 -->
+<!-- <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="all" role="tabpanel">
               <div class="row">
                 <div class="col-lg-6 mb-3"
@@ -70,155 +193,3 @@
                 </div>
               </div>
             </div> -->
-
-
-          <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="all" role="tabpanel">
-              <div class="row">
-                <div class="col-lg-6 mb-3"
-                  *ngFor="let item of dataAllProduct | slice: (pageAll-1) * pageSizeAll : (pageAll-1) * pageSizeAll + pageSizeAll ; let idx = 'index'">
-                  <div class="card" id="post{{idx}}">
-                    <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
-                    <!-- <img src="https://fakeimg.pl/200x200" class="card-img-top cardImg"> -->
-                    <span class="tag">所有甜點</span>
-                    <i class="fa-regular fa-heart"></i>
-                    <div class="card-body h5 row justify-content-center">
-                      <span class="col text-center border-end">{{item[1]}}</span>
-                      <span class="col text-center fw-bold">NTD{{item[2]}}</span>
-                    </div>
-                    <a class="btn btn-lg" id="{{item[0]}}" (click)="add($event)">加入購物車</a>
-                  </div>
-                </div>
-
-              </div>
-
-
-              <div class="row my-3">
-                <div class="col-12 d-flex justify-content-center">
-                  <ngb-pagination class="pagination pagination-lg" [(page)]="pageAll" [pageSize]="pageSizeAll"
-                    [collectionSize]="dataAllProductLength"></ngb-pagination>
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-pane fade" id="featured" role="tabpanel">
-              <div class="row">
-                <div class="col-lg-6 mb-3"
-                  *ngFor="let item of dataFeatured | slice: (pageFeatured-1) * pageSizeFeatured : (pageFeatured-1) * pageSizeFeatured + pageSizeFeatured ; let idx = 'index'">
-                  <div class="card" id="post{{idx}}">
-                    <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
-                    <span class="tag">本日精選</span>
-                    <i class="fa-regular fa-heart"></i>
-                    <div class="card-body h5 row justify-content-center">
-                      <span class="col text-center border-end">{{item[1]}}</span>
-                      <span class="col text-center fw-bold">NTD{{item[2]}}</span>
-                    </div>
-                    <a class="btn btn-lg" id="{{item[0]}}" (click)="add($event)">加入購物車</a>
-                  </div>
-                </div>
-
-              </div>
-
-
-              <div class="row my-3">
-                <div class="col-12 d-flex justify-content-center">
-                  <ngb-pagination class="pagination pagination-lg" [(page)]="pageFeatured" [pageSize]="pageSizeFeatured"
-                    [collectionSize]="dataFeaturedLength"></ngb-pagination>
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-pane fade" id="recommend" role="tabpanel">
-              <div class="row">
-                <div class="col-lg-6 mb-3"
-                  *ngFor="let item of dataRecommend | slice: (pageRecommend-1) * pageSizeRecommend : (pageRecommend-1) * pageSizeRecommend + pageSizeRecommend ; let idx = 'index'">
-                  <div class="card" id="post{{idx}}">
-                    <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
-                    <span class="tag">人氣推薦</span>
-                    <i class="fa-regular fa-heart"></i>
-                    <div class="card-body h5 row justify-content-center">
-                      <span class="col text-center border-end">{{item[1]}}</span>
-                      <span class="col text-center fw-bold">NTD{{item[2]}}</span>
-                    </div>
-                    <a class="btn btn-lg" id="{{item[0]}}" (click)="add($event)">加入購物車</a>
-                  </div>
-                </div>
-
-              </div>
-
-
-              <div class="row my-3">
-                <div class="col-12 d-flex justify-content-center">
-                  <ngb-pagination class="pagination pagination-lg" [(page)]="pageRecommend" [pageSize]="pageSizeRecommend"
-                    [collectionSize]="dataRecommendLength"></ngb-pagination>
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-pane fade" id="newArrival" role="tabpanel">
-              <div class="row">
-                <div class="col-lg-6 mb-3"
-                  *ngFor="let item of dataNewArrival | slice: (pageNewArrival-1) * pageSizeNewArrival : (pageNewArrival-1) * pageSizeNewArrival + pageSizeNewArrival ; let idx = 'index'">
-                  <div class="card" id="post{{idx}}">
-                    <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
-                    <span class="tag">新品上市</span>
-                    <i class="fa-regular fa-heart"></i>
-                    <div class="card-body h5 row justify-content-center">
-                      <span class="col text-center border-end">{{item[1]}}</span>
-                      <span class="col text-center fw-bold">NTD{{item[2]}}</span>
-                    </div>
-                    <a class="btn btn-lg" id="{{item[0]}}" (click)="add($event)">加入購物車</a>
-                  </div>
-                </div>
-
-              </div>
-
-
-              <div class="row my-3">
-                <div class="col-12 d-flex justify-content-center">
-                  <ngb-pagination class="pagination pagination-lg" [(page)]="pageNewArrival" [pageSize]="pageSizeNewArrival"
-                    [collectionSize]="dataNewArrivalLength"></ngb-pagination>
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-pane fade" id="legend" role="tabpanel">
-              <div class="row">
-                <div class="col-lg-6 mb-3"
-                  *ngFor="let item of legend | slice: (pagelegend-1) * pageSizelegend : (pagelegend-1) * pageSizelegend + pageSizelegend ; let idx = 'index'">
-                  <div class="card" id="post{{idx}}">
-                    <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
-                    <span class="tag">絕版品</span>
-                    <i class="fa-regular fa-heart"></i>
-                    <div class="card-body h5 row justify-content-center">
-                      <span class="col text-center border-end">{{item[1]}}</span>
-                      <span class="col text-center fw-bold">NTD{{item[2]}}</span>
-                    </div>
-                    <a class="btn btn-lg" id="{{item[0]}}" (click)="add($event)">加入購物車</a>
-                  </div>
-                </div>
-
-              </div>
-
-
-              <div class="row my-3">
-                <div class="col-12 d-flex justify-content-center">
-                  <ngb-pagination class="pagination pagination-lg" [(page)]="pagelegend" [pageSize]="pageSizelegend"
-                    [collectionSize]="legendLength"></ngb-pagination>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-
-
-
-
-
-
-        </div>
-      </div>
-    </div>
-  </section>
-</main>

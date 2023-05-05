@@ -12,6 +12,7 @@ export class Delivery{
   year!:number;
   code!:number
 }
+
 @Component({
   selector: 'app-checkout1',
   templateUrl: './checkout1.component.html',
@@ -21,7 +22,7 @@ export class Checkout1Component {
   faCheck = faCheck;
 
   cartItem!: any[];
-  fare: number = 100;
+  fare: number = 100; //運費
   total!: number;
 
   form: FormGroup;
@@ -35,12 +36,12 @@ export class Checkout1Component {
   ){
 
     this.form = fb.group({
-      cardNumber: ['', [Validators.required,Validators.minLength(16)]],
+      cardNumber: ['', [Validators.required,Validators.minLength(16)]], //信用卡號
       lastName: ['', Validators.required],
       firstName: ['', Validators.required],
       month: ['', Validators.required],
       year: ['', Validators.required],
-      code: ['', [Validators.required,Validators.minLength(3)]],
+      code: ['', [Validators.required,Validators.minLength(3)]], //安全碼
     })
 
   }

@@ -55,18 +55,20 @@ export class CartComponent {
   }
 
   add(e: any){
-    //數量
+    //數量增加
     let counter = parseInt(e.target.value);
     counter++;
 
-    //產品ID
+    //取產品ID
     let productId = e.target.id.split("-");
     console.log(productId[1]);
 
+    //更新資料庫
     this.datasvc.updateUserCart(productId[1],counter).subscribe((re)=>{
-      console.log('re',re)
+      console.log('re',re);
     })
-    
+
+    //更新數量
     setTimeout(() => {
       this.datasvc.getUserCart().subscribe((data)=>{
         console.log('重新加載數量');
@@ -89,18 +91,27 @@ export class CartComponent {
     }, 50);
 
   }
+
+
   reduce(e: any){
-    //數量
+    //減少數量
     let counter = parseInt(e.target.value);
     counter--;
 
-    //產品ID
+    if(counter == 0){
+      alert('產品數量不得為0,請刪除此項目')
+    }
+
+    //取產品ID
     let productId = e.target.id.split("-");
     // console.log(productId[1]);
 
+    //更新資料庫
     this.datasvc.updateUserCart(productId[1],counter).subscribe((re)=>{
       console.log('re',re)
     })
+
+    //更新數量
     setTimeout(() => {
       this.datasvc.getUserCart().subscribe((data)=>{
         console.log('重新加載數量');
@@ -125,6 +136,7 @@ export class CartComponent {
   }
 
 
+  //直接變更數量
   itemCountChange(e: any){
     //數量
     let counter = parseInt(e.target.value);
@@ -164,6 +176,7 @@ export class CartComponent {
   }
 
 
+  //刪除
   deleteItem(e: any){
     //產品ID
     let productId = e.target.id;
@@ -205,8 +218,11 @@ export class CartComponent {
     }, 50);
   }
 
+
+  //結帳
   checkout(){
     this.datasvc.getUserCart().subscribe((data)=>{
+
       let batchItem = data.data.map((item: any[])=>{
         return {
           "productId": item[0],
@@ -214,6 +230,8 @@ export class CartComponent {
         }
       });
       console.log('batchItem',batchItem)
+
+      //檢查庫存
       this.datasvc.batchUpdateUserCartQuantity(batchItem).subscribe((re)=>{
         console.log('batcjItemInfo',re);
         if(re.status == 200){

@@ -62,6 +62,7 @@ export class Checkout2Component {
 
   }
 
+  //發票種類切換
   tabClick() {
     this.item = !this.item;
   }
@@ -71,7 +72,7 @@ export class Checkout2Component {
   submit() {
     console.log('delivery Info', this.delivery);
 
-    //清空購物車
+
     this.datasvc.getUserCart().subscribe((data) => {
 
       const token = localStorage.getItem('token');
@@ -80,6 +81,7 @@ export class Checkout2Component {
       this.cartItem.map((item) => {
 
         console.log('item', item[0])
+        //清空購物車
         this.datasvc.deleteFromUserCart(item[0]).subscribe((re) => {
           console.log('del all', re)
         })

@@ -37,7 +37,7 @@ export class CheckoutComponent {
     this.form = fb.group({
       lastName: ['', Validators.required],
       firstName: ['', Validators.required],
-      phoneNumber: ['', [Validators.required,Validators.minLength(8)]],
+      phoneNumber: ['', [Validators.required,Validators.minLength(10)]],
       city: ['', Validators.required],
       region: ['', Validators.required],
       address: ['', Validators.required],
@@ -60,6 +60,7 @@ export class CheckoutComponent {
         }
       })
 
+      //加總金額
       this.total = this.cartItem.map((item) => {
         return item.price * item.orderQuantity;
       }).reduce((a, b) => a + b)
