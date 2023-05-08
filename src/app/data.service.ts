@@ -236,6 +236,7 @@ export class LandRecordService {
 
   // 提供訂閱服務 - landRecord
   public landRecord = new BehaviorSubject<any>('');
+  
   landRecord$ = this.landRecord.asObservable();
 
   // 寫入 landRecord$

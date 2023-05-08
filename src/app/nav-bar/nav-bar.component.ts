@@ -23,13 +23,18 @@ export class NavBarComponent {
 
 
 
+
   constructor(
     private landRecordService: LandRecordService,
     private router: Router,
     public datasvc: DataService,
   ){
-
+    if(localStorage.getItem('token') != null){
+      this.landRecordService.landRecord.next(true)
+    }
   }
+
+
 
 
   ngOnInit(): void {
@@ -39,14 +44,16 @@ export class NavBarComponent {
     // console.log('token_decode',token_decode)
 
     // 訂閱 landRecord$
-    this.landRecordRxjs = this.landRecordService.landRecord$.subscribe((resp) => {
+    this.landRecordRxjs = this.landRecordService.landRecord$.subscribe((re) => {
         // 更新狀態
-        this.landRecords = resp;
+        this.landRecords = re;
         // console.log('landRecords',this.landRecords);
     });
 
 
   }
+
+
 
 
 
