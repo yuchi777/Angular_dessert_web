@@ -2,8 +2,9 @@
   <div class="container">
     <div class="row justify-content-center  my-5 mx-2">
       <div class="col-md-10">
+
         <div class="row">
-          <div class="col-sm-12 col-md-6 loginLeft p-0 d-flex flex-column justify-content-between">
+          <div class="col-sm-12 col-md-6 loginLeft p-0 mb-5 d-flex flex-column justify-content-between">
             <div class="h1 text-white text-center pt-5">會員登入</div>
             <div class="d-md-none d-block logoLeft p-3 rounded-0">
               <div class="container">
@@ -19,41 +20,24 @@
             </div>
 
             <form #form="ngForm">
-              <div class="formGroup logoinInput mx-4 mt-3 ">
+              <div class="formGroup logoinInput mx-4 mt-3">
                 <label for="email">
                   <fa-icon [icon]="faUser" class="p-3"></fa-icon>
                 </label>
                 <!--input pattern(email) ="^[a-zA-Z0-9.!#$%&』*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$" -->
-                <input
-                type="email"
-                class="formControl bg-transparent border-0"
-                name="userEmail"
-                id="email"
-                placeholder="電子信箱"
-                required
-                minlength="3"
-                #iAccount="ngModel"
-                [(ngModel)] = "myEmail"
-                >
+                <input type="email" class="formControl bg-transparent border-0" name="userEmail" id="email"
+                  placeholder="電子信箱" required minlength="3" #iAccount="ngModel" [(ngModel)]="myEmail">
               </div>
               <div class="errors" *ngIf="iAccount.errors">
-                <p  class="text-white ps-4" *ngIf="iAccount.errors['required']">請輸入使用者名稱/信箱</p>
+                <p class="text-white ps-4" *ngIf="iAccount.errors['required']">請輸入使用者名稱/信箱</p>
               </div>
 
               <div class="formGroup logoinInput mx-4 mt-2 ">
                 <label for="password">
                   <fa-icon [icon]="faKey" class="p-3"></fa-icon>
                 </label>
-                <input
-                type="password"
-                class="formControl bg-transparent border-0"
-                name="userPassword"
-                id="password"
-                placeholder="請輸入使用者密碼"
-                required
-                minlength="5"
-                #iPassword="ngModel"
-                [(ngModel)] = "myPassword"  >
+                <input type="password" class="formControl bg-transparent border-0" name="userPassword" id="password"
+                  placeholder="請輸入使用者密碼" required minlength="5" #iPassword="ngModel" [(ngModel)]="myPassword">
               </div>
               <div class="errors" *ngIf="iPassword.errors">
                 <p class="text-white ps-4" *ngIf="iPassword.errors['required']">請輸入密碼</p>
@@ -62,13 +46,47 @@
 
               <!-- 預覽 -->
               <!-- <pre>{{form.value | json}}</pre> -->
-
               <div class="logoinCheckbox mx-4 mt-2 mb-3">
                 <input type="checkbox" id="remember" [checked]="checkSet" (change)="rememberMe()">
-                <label for="remember" class="text-white mx-1"   >記住我</label>
+                <label for="remember" class="text-white mx-1">記住我</label>
               </div>
-              <button type="submit" class="py-3 btn btn-warning text-secondary w-100 rounded-0" (click)="login()">登入帳號</button>
+              <button type="submit" class="py-3 btn btn-warning text-secondary w-100 rounded-0"
+                (click)="login()">登入帳號</button>
+              <button id="regisBtn" type="button" class="py-3 btn text-white w-100 rounded-0" (click)="open(content)" >註冊帳號</button>
             </form>
+
+            <ng-template #content let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">註冊帳號</h4>
+                <button type="button" class="btn-close" aria-label="Close"
+                  (click)="modal.dismiss('Cross click')"></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="mb-3">
+                    <div class="input-group my-3">
+                      <label class="input-group-text" for="regisUser"><fa-icon [icon]="faUser"></fa-icon></label>
+                      <input type="text" class="form-control" name="regisUser" id="regisUser" placeholder="Username" required minlength="3" #iRegisUser="ngModel" [(ngModel)]="regisUser">
+                    </div>
+                    <div class="errors" *ngIf="iRegisUser.errors">
+                      <p *ngIf="iRegisUser.errors['required']">請輸入帳號</p>
+                    </div>
+
+                    <div class="input-group my-3">
+                      <label class="input-group-text" for="regisPsd"><fa-icon [icon]="faKey"></fa-icon></label>
+                      <input type="text" class="form-control" name="regisPsd" id="regisPsd" placeholder="Password"  required minlength="5" #iRegisPsd="ngModel" [(ngModel)]="RegisPsd">
+                    </div>
+                    <div class="errors" *ngIf="iRegisPsd.errors">
+                      <p *ngIf="iRegisPsd.errors['required']">請輸入密碼</p>
+                      <p *ngIf="iRegisPsd.errors['minlength']">密碼長度必須超過6字元</p>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" (click)="register()">註冊</button>
+              </div>
+            </ng-template>
 
 
 

@@ -150,6 +150,13 @@ export class DataService {
 
   }
 
+  register(regisUser:any,password:any){
+    return this.http.post('http://presale.money-link.com.tw/sweetApi/register',{
+      "username" : regisUser,
+      "password" : password
+    })
+  }
+
 
 
   addUserCart(productId: number, counter: number) {

@@ -4,6 +4,7 @@ import { faKey } from '@fortawesome/free-solid-svg-icons';
 import { DataService,LandRecordService } from '../../data.service';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
+import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login',
@@ -30,11 +31,18 @@ export class LoginComponent {
   //登入狀態
   isLogin:boolean = false;
 
+  regisUser: any;
+  RegisPsd:any;
+
+
+
 
   constructor(
     public datasvc:DataService,
     private router: Router,
-    private landRecordService: LandRecordService){
+    private landRecordService: LandRecordService,
+    private modalService: NgbModal
+    ){
 
   }
 
@@ -87,10 +95,30 @@ export class LoginComponent {
       }
     },(error)=>{
       console.log(error);
-      alert('登入失敗'+ error.error.message);
+      alert('無帳號資料，請註冊');
       // window.location.reload();
     })
   }
+
+  open(content: any) {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
+	}
+
+
+  register(){
+    this.datasvc.register(this.regisUser,this.RegisPsd).subscribe(()=>{
+      alert('註冊成功');
+      this.regisUser=''
+      this.RegisPsd=''
+      this.modalService.dismissAll();//註冊成功關閉視窗
+    },(error)=>{
+      this.regisUser=''
+      this.RegisPsd=''
+      alert('註冊錯誤, 請重新註冊');
+    })
+
+  }
+
 
 
 }

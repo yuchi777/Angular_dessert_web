@@ -409,6 +409,13 @@ input[type='checkbox'] {
   background-color: #EAF0ED;
 }
 
+#regisBtn{
+  background-color: #3F5D45;
+}
+#regisBtn:hover{
+  background-color: #4e7255;
+}
+
 
 /* 購物車圖片樣式 */
 .cartImg{
