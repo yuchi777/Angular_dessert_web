@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
-import { LandRecordService } from '../data.service';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
 import { DataService } from '../data.service';
@@ -14,9 +13,9 @@ export class NavBarComponent {
   faCartShopping = faCartShopping;
 
   // landRecord$
-  landRecordRxjs: any = null;
+  userStatusRxjs: any = null;
   // 狀態
-  landRecords = false;
+  userStatus = false;
 
   //token
   token:any;
@@ -25,12 +24,11 @@ export class NavBarComponent {
 
 
   constructor(
-    private landRecordService: LandRecordService,
     private router: Router,
     public datasvc: DataService,
   ){
     if(localStorage.getItem('token') != null){
-      this.landRecordService.landRecord.next(true)
+      this.datasvc.userStatus.next(true)
     }
   }
 
@@ -44,9 +42,9 @@ export class NavBarComponent {
     // console.log('token_decode',token_decode)
 
     // 訂閱 landRecord$
-    this.landRecordRxjs = this.landRecordService.landRecord$.subscribe((re) => {
+    this.userStatusRxjs = this.datasvc.userStatus$.subscribe((re) => {
         // 更新狀態
-        this.landRecords = re;
+        this.userStatus = re;
         // console.log('landRecords',this.landRecords);
     });
 
@@ -65,7 +63,7 @@ export class NavBarComponent {
   // }
 
   logout(){
-    this.landRecords = false;
+    this.userStatus = false;
     localStorage.removeItem('token');
     console.log('localStorage token 已清除');
     this.router.navigate(['/login'])

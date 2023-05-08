@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faKey } from '@fortawesome/free-solid-svg-icons';
-import { DataService,LandRecordService } from '../../data.service';
+import { DataService } from '../../data.service';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -40,7 +40,6 @@ export class LoginComponent {
   constructor(
     public datasvc:DataService,
     private router: Router,
-    private landRecordService: LandRecordService,
     private modalService: NgbModal
     ){
 
@@ -90,7 +89,7 @@ export class LoginComponent {
         alert('登入成功')
 
         //儲存登入狀態
-        this.landRecordService.setLandRecord(this.isLogin)
+        this.datasvc.setUserStatus(this.isLogin)
         this.router.navigate(['/'])
       }
     },(error)=>{
