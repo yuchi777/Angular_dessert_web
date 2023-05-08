@@ -46,6 +46,7 @@ export class CheckoutComponent {
   }
 
   ngOnInit(): void {
+    
     this.datasvc.getUserCart().subscribe((data) => {
       console.log('getUserCart', data.data);
       this.cartItem = data.data;

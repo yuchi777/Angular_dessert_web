@@ -4,7 +4,7 @@ import { faKey } from '@fortawesome/free-solid-svg-icons';
 import { DataService,LandRecordService } from '../../data.service';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
-import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login',
@@ -22,8 +22,8 @@ export class LoginComponent {
   // myEmail = "admin";
 
   ////密碼input
-  password = localStorage.getItem('password');
-  myPassword = this.password ? this.password : "";
+  // password = localStorage.getItem('password');
+  myPassword = "";
   // myPassword = "123123";
 
   //記住我checkbox狀態
@@ -53,16 +53,16 @@ export class LoginComponent {
     if(this.checkSet == true){
       console.log('記住我');
       localStorage.setItem('username',this.myEmail);
-      localStorage.setItem('password',this.myPassword);
+      // localStorage.setItem('password',this.myPassword);
     }else if(this.checkSet == false){
       console.log('清除');
       // localStorage.clear();
       localStorage.removeItem('username');
-      localStorage.removeItem('password');
+      // localStorage.removeItem('password');
 
     }
     console.log('readloaclStorage',localStorage.getItem('username'));
-    console.log('readloaclStorage',localStorage.getItem('password'));
+    // console.log('readloaclStorage',localStorage.getItem('password'));
   }
 
   login(){
@@ -95,7 +95,7 @@ export class LoginComponent {
       }
     },(error)=>{
       console.log(error);
-      alert('無帳號資料，請註冊');
+      alert('請重新登入或註冊帳號');
       // window.location.reload();
     })
   }

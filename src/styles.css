@@ -318,7 +318,7 @@ footer{
 
 /* 登入容器樣式 */
 .loginLeft{
-  height: 380px;
+  /* height: 380px; */
   background-color: #3F5D45;
 }
 .cartRight{

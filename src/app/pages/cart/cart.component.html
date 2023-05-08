@@ -8,6 +8,9 @@
               <div class="col mb-2">
                 <h2 class="h4 text-center text-secondary cartLeft p-3">你的購物車</h2>
               </div>
+              <div class="col mb-2" *ngIf="chkList()">
+                <h3 class="h4 text-center text-secondary p-3">請點選商品加入購物車</h3>
+              </div>
               <div class="col mb-2" *ngFor="let item of cartItem">
                 <div class="row align-items-center justify-content-end">
                   <div class="col-7 col-md-3 cartBackground"

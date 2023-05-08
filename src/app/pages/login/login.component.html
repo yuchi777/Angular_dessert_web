@@ -4,7 +4,7 @@
       <div class="col-md-10">
 
         <div class="row">
-          <div class="col-sm-12 col-md-6 loginLeft p-0 mb-5 d-flex flex-column justify-content-between">
+          <div class="col-sm-12 col-md-6 loginLeft p-0 d-flex flex-column">
             <div class="h1 text-white text-center pt-5">會員登入</div>
             <div class="d-md-none d-block logoLeft p-3 rounded-0">
               <div class="container">
@@ -51,7 +51,7 @@
                 <label for="remember" class="text-white mx-1">記住我</label>
               </div>
               <button type="submit" class="py-3 btn btn-warning text-secondary w-100 rounded-0"
-                (click)="login()">登入帳號</button>
+                (click)="login()" [disabled]="myEmail && myPassword?false:true">登入</button>
               <button id="regisBtn" type="button" class="py-3 btn text-white w-100 rounded-0" (click)="open(content)" >註冊帳號</button>
             </form>
 

@@ -33,6 +33,7 @@ export class DataService {
 
   data: any;
   adminToken = localStorage.getItem('adminToken');
+  token = localStorage.getItem('token') ?  localStorage.getItem('token') : '';
 
   constructor(private http: HttpClient) {
 
@@ -141,14 +142,15 @@ export class DataService {
     switch (_loginInfo.username) {
       case 'admin':
         return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/adminLogin', _loginInfo)
-        break;
+
 
       default:
         return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/login', _loginInfo)
-        break;
+
     }
 
   }
+
 
   register(regisUser:any,password:any){
     return this.http.post('http://presale.money-link.com.tw/sweetApi/register',{
@@ -160,9 +162,9 @@ export class DataService {
 
 
   addUserCart(productId: number, counter: number) {
-    const token = localStorage.getItem('token');
+    // const token = localStorage.getItem('token');
     return this.http.post('http://presale.money-link.com.tw/sweetApi/addUserCart', {
-      "token": token,
+      "token": this.token,
       "productId": productId,
       // "orderQuantity":counter,
       "orderQuantity": 1,
@@ -173,7 +175,7 @@ export class DataService {
     const token: any = localStorage.getItem('token');
     const adminToken: any = localStorage.getItem('adminToken');
     // console.log('getusercartToken', token);
-    console.log('getusercartToken', jwt_decode(token));
+    // console.log('getusercartToken', jwt_decode(this.token));
     return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getUserCart', {
       "token": token
     })

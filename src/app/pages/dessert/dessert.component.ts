@@ -37,6 +37,7 @@ export class DessertComponent {
   dataLabel: any;
 
   getTotal: any[] = [];
+  token = localStorage.getItem('token') ?  localStorage.getItem('token') : '';
 
 
   // DI注入
@@ -72,13 +73,15 @@ export class DessertComponent {
 
           this.typeIdArr.forEach((data) => {
             if (data.id == 1) {
-              console.log('click data', data)
+              // console.log('click data', data)
               this.data = data.data;
               this.dataId = data.id;
               this.dataFieldIndex = data.fieldIndex;
             }
           })
 
+        },(error)=>{
+          console.log(error.error.message)
         })
       })
 
@@ -167,7 +170,7 @@ export class DessertComponent {
 
     this.typeIdArr.forEach((data) => {
       if (data.id == id) {
-        console.log('click data', data)
+        // console.log('click data', data)
         this.data = data.data;
         this.dataId = data.id;
         this.dataFieldIndex = data.fieldIndex;
@@ -180,16 +183,18 @@ export class DessertComponent {
 
 
   add(e: any) {
-
-    //取得產品ID
+    if(!this.token){
+      alert('請先登入')
+    }else{
+      //取得產品ID
     let productId = e.target.id;
 
     //取得使用者購物車資訊
     //新增購物車產品數量
     this.datasvc.getUserCart().subscribe((data) => {
 
-      console.log('購物車', data)
-      console.log('購物車data', data.data)
+      // console.log('購物車', data)
+      // console.log('購物車data', data.data)
 
       let carData = data.data;
 
@@ -197,9 +202,14 @@ export class DessertComponent {
         //新增購物車產品數量
         this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
           //counter打回去
-          alert(`新增成功商品ID-${productId}成功, 購物車有${this.counter}件`)
-          console.log('addUserCart', data)
+          alert(`新增商品ID.${productId}成功, 購物車有${this.counter}件`)
+          // console.log('addUserCart', data);
           this.counter = 1;
+        },(error)=>{
+          if(error.status == 400){
+            console.log(error.message)
+            alert('訂單數量超過庫存')
+          }
         })
       } else {
         carData.forEach((e: any[]) => {
@@ -213,11 +223,16 @@ export class DessertComponent {
             console.log('增加後數量', this.counter)
 
             //新增購物車產品數量
-            this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
+            this.datasvc.addUserCart(productId, this.counter).subscribe((data: any) => {
               //counter打回去
-              alert(`新增成功商品ID-${productId}成功, 購物車有${this.counter}件`)
-              console.log('addUserCart', data)
+              alert(`新增商品No.${productId}成功, 購物車有${this.counter}件`)
+              console.log('addUserCart', data);
               this.counter = 1;
+            },(error)=>{
+              if(error.status == 400){
+                console.log(error.message)
+                alert('訂單數量超過庫存')
+              }
             })
           }
         })
@@ -234,13 +249,23 @@ export class DessertComponent {
           console.log('點選ID', productId);
 
           this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
-            alert(`新增成功商品ID-${productId}成功, 購物車有${this.counter}件`)
+            alert(`新增商品No.${productId}成功, 購物車有${this.counter}件`)
             console.log('addUserCart', data)
             this.counter = 1;
+          },(error)=>{
+            if(error.status == 400){
+              console.log(error.message)
+              alert('訂單數量超過庫存')
+            }
           })
         }
       }
     })
+
+    }
+
+
+
   }
 
 

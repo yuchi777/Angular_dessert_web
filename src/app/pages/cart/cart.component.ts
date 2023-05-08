@@ -27,7 +27,7 @@ export class CartComponent {
       console.log('cartItem',this.cartItem);
 
       if(data.data == undefined){
-        alert('購物車為空')
+        console.log('請點選商品加入購物車')
       }else{
         this.fare = 100 ;
         this.cartItem = this.cartItem.map((item)=>{
@@ -52,6 +52,10 @@ export class CartComponent {
 
       }
     })
+  }
+
+  chkList(){
+    return this.cartItem?false:true;
   }
 
   add(e: any){
@@ -150,7 +154,10 @@ export class CartComponent {
 
     this.datasvc.updateUserCart(productId[1],counter).subscribe((re)=>{
       console.log('re',re)
-    },(error)=>{alert(error.error.message)})
+    },(error)=>{
+      alert('訂單數量超過庫存')
+      console.log(error.error.message)
+    })
 
 
     setTimeout(() => {
@@ -192,7 +199,6 @@ export class CartComponent {
           this.cartItem = [];
           this.total = 0 ;
           this.fare = 0;
-          alert('購物車為空')
         }else{
 
           this.cartItem = data.data.map((item: any[])=>{
