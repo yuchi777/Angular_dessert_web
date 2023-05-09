@@ -102,16 +102,16 @@
 
               <div class="card" id="post{{idx}}" >
                 <!-- <img src="{{item[4]}}" class="card-img-top cardImg"> -->
-                <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
+                <img src="data:image/jpg;base64,{{item[fieldIndex.img]}}" class="card-img-top cardImg">
                 <span class="tag">本日精選</span>
                 <fa-icon [icon]="faHeart"></fa-icon>
                 <div class="card-body">
                   <div class="card-title h5 row justify-content-center">
-                    <span class="col text-center border-end">{{item[1]}}</span>
-                    <span class="col text-center fw-bold">NTD{{item[2]}}</span>
+                    <span class="col text-center border-end">{{item[fieldIndex.name]}}</span>
+                    <span class="col text-center fw-bold">NTD{{item[fieldIndex.price]}}</span>
                   </div>
                 </div>
-                <a class="btn btn-lg" id="{{item[0]}}" (click)="add($event)">加入購物車</a>
+                <a class="btn btn-lg" id="{{item[fieldIndex.productId]}}" (click)="add($event)">加入購物車</a>
               </div>
 
             </div>
@@ -126,17 +126,17 @@
             >
               <div class="card" id="post{{idx}}">
                 <!-- <img src="{{item[4]}}" class="card-img-top cardImg"> -->
-                <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
+                <img src="data:image/jpg;base64,{{item[fieldIndex.img]}}" class="card-img-top cardImg">
                 <span class="tag">人氣推薦</span>
                 <!-- <i class="fa-regular fa-heart"></i> -->
                 <fa-icon [icon]="faHeart"></fa-icon>
                 <div class="card-body">
                   <div class="card-title h5 row justify-content-center">
-                    <span class="col text-center border-end">{{item[1]}}</span>
-                    <span class="col text-center fw-bold">NTD{{item[2]}}</span>
+                    <span class="col text-center border-end">{{item[fieldIndex.name]}}</span>
+                    <span class="col text-center fw-bold">NTD{{item[fieldIndex.price]}}</span>
                   </div>
                 </div>
-                <a class="btn btn-lg" id="{{item[0]}}" (click)="add($event)" >加入購物車</a>
+                <a class="btn btn-lg" id="{{item[fieldIndex.productId]}}" (click)="add($event)" >加入購物車</a>
               </div>
 
             </div>
@@ -153,17 +153,17 @@
             >
               <div class="card" id="post{{idx}}">
                 <!-- <img src="{{item[4]}}" class="card-img-top cardImg"> -->
-                <img src="data:image/jpg;base64,{{item[4]}}" class="card-img-top cardImg">
+                <img src="data:image/jpg;base64,{{item[fieldIndex.img]}}" class="card-img-top cardImg">
                 <span class="tag">新品上市</span>
                 <!-- <i class="fa-regular fa-heart"></i> -->
                 <fa-icon [icon]="faHeart"></fa-icon>
                 <div class="card-body">
                   <div class="card-title h5 row justify-content-center">
-                    <span class="col text-center border-end">{{item[1]}}</span>
-                    <span class="col text-center fw-bold">NTD{{item[2]}}</span>
+                    <span class="col text-center border-end">{{item[fieldIndex.name]}}</span>
+                    <span class="col text-center fw-bold">NTD{{item[fieldIndex.price]}}</span>
                   </div>
                 </div>
-                <a class="btn btn-lg" id="{{item[0]}}" (click)="add($event)" >加入購物車</a>
+                <a class="btn btn-lg" id="{{item[fieldIndex.productId]}}" (click)="add($event)" >加入購物車</a>
               </div>
             </div>
 

@@ -14,6 +14,8 @@ export class HomeComponentComponent {
   dataRecommend!: any[]
   dataNewArrival!: any[]
   counter: number = 1;
+  token = localStorage.getItem('token');
+  fieldIndex: any;
 
   // DI注入
   constructor(public datasvc: DataService) {
@@ -32,12 +34,16 @@ export class HomeComponentComponent {
 
     this.datasvc.getProductsByTypeId(1).subscribe((data)=>{
       this.dataFeatured = data.data;
+      this.fieldIndex = data.fieldIndex;
+      console.log(this.fieldIndex)
     })
     this.datasvc.getProductsByTypeId(2).subscribe((data)=>{
       this.dataRecommend = data.data;
+      this.fieldIndex = data.fieldIndex;
     })
     this.datasvc.getProductsByTypeId(3).subscribe((data)=>{
       this.dataNewArrival = data.data;
+      this.fieldIndex = data.fieldIndex;
     })
 
 
@@ -46,6 +52,11 @@ export class HomeComponentComponent {
   }
 
   add(e: any) {
+    if(!this.token){
+      alert('請先登入')
+    }else{
+
+    }
       //取得產品ID
       let productId = e.target.id;
 
@@ -55,34 +66,48 @@ export class HomeComponentComponent {
 
         console.log('購物車', data)
         console.log('購物車data', data.data)
-
+        console.log('fieldIndex', data.fieldIndex)
+        let fieldIndex = data.fieldIndex;
         let carData = data.data;
 
         if( carData == undefined){
-          //新增購物車產品數量
+          console.log('getUserCart no Data')
           this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
-            //counter打回去
-            alert(`新增成功商品ID-${productId}成功, 購物車有${this.counter}件`)
-            console.log('addUserCart', data)
+            alert(`新增商品ID.${productId}成功, 購物車有${this.counter}件`)
             this.counter = 1;
+          },(error)=>{
+            if(error.error.status == 400){
+              console.log(error)
+            }
+            if(error.error.status == 400 && error.error.message == 'Order quantity exceeds inventory'){
+              alert('訂單數量超過庫存')
+            }
           })
         }else{
           carData.forEach((e: any[]) => {
-            if (e[0] == productId && e[1].length > 0) {
+            if (e[fieldIndex.productId] == productId && [fieldIndex.orderQuantity].length > 0) {
               console.log('已經在購物車裡');
-              console.log('已有產品數量', e[1]);
-              console.log('name', e[2]);
+              console.log('庫存', e[fieldIndex.inventories]);
+              console.log('已有產品數量', e[fieldIndex.orderQuantity]);
+              console.log('name', e[fieldIndex.name]);
 
               //counter+已有數量
-              this.counter = this.counter + parseInt(e[1]);
+              this.counter = this.counter + parseInt(e[fieldIndex.orderQuantity]);
               console.log('增加後數量', this.counter)
 
               //新增購物車產品數量
               this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
                 //counter打回去
-                alert(`新增成功商品ID-${productId}成功, 購物車有${this.counter}件`)
+                alert(`新增成功商品成功`)
                 console.log('addUserCart', data)
                 this.counter = 1;
+              },(error)=>{
+                if(error.error.status == 400){
+                  console.log(error)
+                }
+                if(error.error.status == 400 && error.error.message == 'Order quantity exceeds inventory'){
+                  alert('訂單數量超過庫存')
+                }
               })
             }
           })
@@ -90,7 +115,7 @@ export class HomeComponentComponent {
 
           //確認購物車有無點選產品
         let chkProductId = carData.every((e: any[]) => {
-          return e[0] !== productId
+          return e[fieldIndex.productId] !== productId
         });
         console.log('沒有在購物車裡', chkProductId);
 
@@ -99,9 +124,17 @@ export class HomeComponentComponent {
           console.log('點選ID', productId);
 
           this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
-            alert(`新增成功商品ID-${productId}成功, 購物車有${this.counter}件`)
+            alert(`新增商品成功`)
             console.log('addUserCart', data)
             this.counter = 1;
+          },(error)=>{
+            if(error.error.status == 400){
+              console.log(error)
+            }
+            if(error.error.status == 400 && error.error.message == 'Order quantity exceeds inventory'){
+              alert('訂單數量超過庫存')
+            }
+
           })
         }
         }

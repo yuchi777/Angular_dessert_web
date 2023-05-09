@@ -37,7 +37,7 @@ export class DessertComponent {
   dataLabel: any;
 
   getTotal: any[] = [];
-  token = localStorage.getItem('token') ?  localStorage.getItem('token') : '';
+  token = localStorage.getItem('token');
 
 
   // DI注入
@@ -200,11 +200,19 @@ export class DessertComponent {
       let carData = data.data;
 
       if (carData == undefined) {
+        //清空商品回傳undefined
         console.log('getUserCart no Data')
-        // this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
-        //   alert(`新增商品ID.${productId}成功, 購物車有${this.counter}件`)
-        //   this.counter = 1;
-        // })
+        this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
+          alert(`新增商品成功`)
+          this.counter = 1;
+        },(error)=>{
+          if(error.error.status == 400){
+            console.log(error)
+          }
+          if(error.error.status == 400 && error.error.message == 'Order quantity exceeds inventory'){
+            alert('訂單數量超過庫存')
+          }
+        })
 
       } else {
 
@@ -223,7 +231,7 @@ export class DessertComponent {
             //新增購物車產品數量
             this.datasvc.addUserCart(productId, this.counter).subscribe((data: any) => {
               //counter打回去
-              alert(`新增商品${e[fieldIndex.name]}-${productId}成功, 購物車有${this.counter}件`)
+              alert(`新增商品成功`)
               console.log('addUserCart', data);
               this.counter = 1;
             },(error)=>{
@@ -234,10 +242,6 @@ export class DessertComponent {
                 alert('訂單數量超過庫存')
               }
             })
-          }else{
-
-
-
           }
         })
 
@@ -253,7 +257,7 @@ export class DessertComponent {
           console.log('點選ID', productId);
 
           this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
-            alert(`新增商品No.${productId}成功, 購物車有${this.counter}件`)
+            alert(`新增商品成功`)
             console.log('addUserCart', data)
             this.counter = 1;
           },(error)=>{

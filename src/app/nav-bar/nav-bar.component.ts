@@ -12,9 +12,9 @@ import { DataService } from '../data.service';
 export class NavBarComponent {
   faCartShopping = faCartShopping;
 
-  // landRecord$
+  //userStatus$
   userStatusRxjs: any = null;
-  // 狀態
+  //狀態
   userStatus = false;
 
   //token
@@ -38,8 +38,6 @@ export class NavBarComponent {
   ngOnInit(): void {
 
     this.token = localStorage.getItem('token');
-    // const token_decode  = jwt_decode(this.token);
-    // console.log('token_decode',token_decode)
 
     // 訂閱 userStatus$
     this.userStatusRxjs = this.datasvc.userStatus$.subscribe((re) => {
@@ -56,15 +54,13 @@ export class NavBarComponent {
 
 
 
-  // 取消訂閱 landRecord$
-  // ngOnDestroy(): void {
-  //   if (!!this.landRecordRxjs) this.landRecordRxjs.unsubscribe();
-  // }
+  // 取消訂閱 userStatus$
 
   logout(){
-    
+
     this.userStatus = false;
     localStorage.removeItem('token');
+    // localStorage.clear();
     this.router.navigate(['/login']);
 
     console.log('localStorage token 已清除');

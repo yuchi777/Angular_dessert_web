@@ -26,6 +26,7 @@ export class CheckoutComponent {
 
   form: FormGroup;
   delivery = new Delivery();
+  fieldIndex!: { productId: string | number; orderQuantity: string | number; name: string | number; price: string | number; inventories: string | number; img: string | number; };
 
   constructor(
     public datasvc: DataService,
@@ -46,18 +47,19 @@ export class CheckoutComponent {
   }
 
   ngOnInit(): void {
-    
+
     this.datasvc.getUserCart().subscribe((data) => {
       console.log('getUserCart', data.data);
+      this.fieldIndex = data.fieldIndex;
       this.cartItem = data.data;
       this.cartItem = this.cartItem.map((item) => {
         return {
-          "productId": item[0],
-          "orderQuantity": item[1],
-          "name": item[2],
-          "price": item[3],
-          "inventories": item[4],
-          "img": item[5],
+          "productId": item[this.fieldIndex.productId],
+          "orderQuantity": item[this.fieldIndex.orderQuantity],
+          "name": item[this.fieldIndex.name],
+          "price": item[this.fieldIndex.price],
+          "inventories": item[this.fieldIndex.inventories],
+          "img": item[this.fieldIndex.img],
         }
       })
 

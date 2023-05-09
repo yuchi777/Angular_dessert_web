@@ -1,15 +1,10 @@
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 
 export interface Api {
-  fieldIndex: any;
-  status: any;
-  data: any;
-  items: any;
-
-
   //需要從api取出的資料
   img: string,
   types: string,
@@ -18,9 +13,10 @@ export interface Api {
   price: string,
   name: string
 
-  // username: string,
-  // password: string,
-
+  fieldIndex: any;
+  status: any;
+  data: any;
+  items: any;
 }
 
 
@@ -31,10 +27,10 @@ export class DataService {
 
   // private data: any;
   private adminToken = localStorage.getItem('adminToken');
-  private token = localStorage.getItem('token') ?  localStorage.getItem('token') : '';
+  private token: any;
 
   constructor(private http: HttpClient) {
-
+    this.token = localStorage.getItem('token');
   }
 
 
@@ -48,7 +44,6 @@ export class DataService {
   public setUserStatus(value: any): void {
     this.userStatus.next(value);
   }
-
 
   public getProductsByType(){
     return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getAllProductType',{})
@@ -73,18 +68,17 @@ export class DataService {
   }
 
   public login(_loginInfo: { username: any; password?: string; }) {
-
-    switch (_loginInfo.username) {
-      case 'admin':
-        return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/adminLogin', _loginInfo)
-
-
-      default:
-        return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/login', _loginInfo)
-
-    }
+    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/login', _loginInfo)
+    // switch (_loginInfo.username) {
+    //   case 'admin':
+    //     return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/adminLogin', _loginInfo)
+    //   default:
+    //     return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/login', _loginInfo)
+    // }
 
   }
+
+
 
 
   public register(regisUser:any,password:any){
@@ -108,9 +102,7 @@ export class DataService {
 
   public getUserCart() {
     const token: any = localStorage.getItem('token');
-    const adminToken: any = localStorage.getItem('adminToken');
-    // console.log('getusercartToken', token);
-    // console.log('getusercartToken', jwt_decode(this.token));
+    // const adminToken: any = localStorage.getItem('adminToken');
     return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getUserCart', {
       "token": token
     })

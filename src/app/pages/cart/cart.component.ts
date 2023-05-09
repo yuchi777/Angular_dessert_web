@@ -13,6 +13,7 @@ export class CartComponent {
   cartItem!: any[];
   fare: number = 0;
   total!:number;
+  fieldIndex!: { productId: string | number; orderQuantity: string | number; name: string | number; price: string | number; inventories: string | number; img: string | number; };
 
   constructor(public datasvc: DataService,private router: Router,){
 
@@ -21,8 +22,8 @@ export class CartComponent {
 
   ngOnInit(): void {
     this.datasvc.getUserCart().subscribe((data)=>{
-      console.log('getUserCart_status', data);
-      console.log('getUserCart', data.data);
+      console.log('getUserCart data', data);
+      this.fieldIndex = data.fieldIndex;
       this.cartItem = data.data;
       console.log('cartItem',this.cartItem);
 
@@ -32,12 +33,12 @@ export class CartComponent {
         this.fare = 100 ;
         this.cartItem = this.cartItem.map((item)=>{
           return {
-            "productId": item[0],
-            "orderQuantity": item[1],
-            "name": item[2],
-            "price": item[3],
-            "inventories": item[4],
-            "img": item[5],
+            "productId": item[this.fieldIndex.productId],
+            "orderQuantity": item[this.fieldIndex.orderQuantity],
+            "name": item[this.fieldIndex.name],
+            "price": item[this.fieldIndex.price],
+            "inventories": item[this.fieldIndex.inventories],
+            "img": item[this.fieldIndex.img],
           }
         })
         // this.cartItem = newItem;
@@ -65,7 +66,6 @@ export class CartComponent {
 
     //取產品ID
     let productId = e.target.id.split("-");
-    console.log(productId[1]);
 
     //更新資料庫
     this.datasvc.updateUserCart(productId[1],counter).subscribe((re)=>{
@@ -76,14 +76,14 @@ export class CartComponent {
     setTimeout(() => {
       this.datasvc.getUserCart().subscribe((data)=>{
         console.log('重新加載數量');
-        this.cartItem = data.data.map((item: any[])=>{
+        this.cartItem = data.data.map((item: { [x: string]: any; })=>{
           return {
-            "productId": item[0],
-            "orderQuantity": item[1],
-            "name": item[2],
-            "price": item[3],
-            "inventories": item[4],
-            "img": item[5],
+            "productId": item[this.fieldIndex.productId],
+            "orderQuantity": item[this.fieldIndex.orderQuantity],
+            "name": item[this.fieldIndex.name],
+            "price": item[this.fieldIndex.price],
+            "inventories": item[this.fieldIndex.inventories],
+            "img": item[this.fieldIndex.img],
           }
         });
         //加總購物車項目金額
@@ -119,14 +119,14 @@ export class CartComponent {
     setTimeout(() => {
       this.datasvc.getUserCart().subscribe((data)=>{
         console.log('重新加載數量');
-        this.cartItem = data.data.map((item: any[])=>{
+        this.cartItem = data.data.map((item: { [x: string]: any; })=>{
           return {
-            "productId": item[0],
-            "orderQuantity": item[1],
-            "name": item[2],
-            "price": item[3],
-            "inventories": item[4],
-            "img": item[5],
+            "productId": item[this.fieldIndex.productId],
+            "orderQuantity": item[this.fieldIndex.orderQuantity],
+            "name": item[this.fieldIndex.name],
+            "price": item[this.fieldIndex.price],
+            "inventories": item[this.fieldIndex.inventories],
+            "img": item[this.fieldIndex.img],
           }
         });
         //加總購物車項目金額
@@ -163,14 +163,14 @@ export class CartComponent {
     setTimeout(() => {
       this.datasvc.getUserCart().subscribe((data)=>{
         console.log('重新加載數量');
-        this.cartItem = data.data.map((item: any[])=>{
+        this.cartItem = data.data.map((item: { [x: string]: any; })=>{
           return {
-            "productId": item[0],
-            "orderQuantity": item[1],
-            "name": item[2],
-            "price": item[3],
-            "inventories": item[4],
-            "img": item[5],
+            "productId": item[this.fieldIndex.productId],
+            "orderQuantity": item[this.fieldIndex.orderQuantity],
+            "name": item[this.fieldIndex.name],
+            "price": item[this.fieldIndex.price],
+            "inventories": item[this.fieldIndex.inventories],
+            "img": item[this.fieldIndex.img],
           }
         });
         //加總購物車項目金額
@@ -201,14 +201,14 @@ export class CartComponent {
           this.fare = 0;
         }else{
 
-          this.cartItem = data.data.map((item: any[])=>{
+          this.cartItem = data.data.map((item: { [x: string]: any; })=>{
             return {
-              "productId": item[0],
-              "orderQuantity": item[1],
-              "name": item[2],
-              "price": item[3],
-              "inventories": item[4],
-              "img": item[5],
+              "productId": item[this.fieldIndex.productId],
+              "orderQuantity": item[this.fieldIndex.orderQuantity],
+              "name": item[this.fieldIndex.name],
+              "price": item[this.fieldIndex.price],
+              "inventories": item[this.fieldIndex.inventories],
+              "img": item[this.fieldIndex.img],
             }
           });
 
@@ -229,10 +229,10 @@ export class CartComponent {
   checkout(){
     this.datasvc.getUserCart().subscribe((data)=>{
 
-      let batchItem = data.data.map((item: any[])=>{
+      let batchItem = data.data.map((item: { [x: string]: any; })=>{
         return {
-          "productId": item[0],
-          "orderQuantity": item[1]
+          "productId": item[this.fieldIndex.productId],
+          "orderQuantity": item[this.fieldIndex.orderQuantity]
         }
       });
       console.log('batchItem',batchItem)

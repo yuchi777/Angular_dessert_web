@@ -76,11 +76,9 @@ export class LoginComponent {
       if(re.status == 200){
         this.isLogin = true;
 
-        console.log('jwt',jwt_decode(re.data))
 
         if(this.myEmail == 'admin'){
           localStorage.setItem('token',re.data);
-
           localStorage.setItem('name',this.myEmail);
           localStorage.setItem('adminToken',re.data);
         }
