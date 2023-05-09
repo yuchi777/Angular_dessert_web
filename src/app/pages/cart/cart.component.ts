@@ -9,11 +9,12 @@ import { Router } from '@angular/router';
 })
 export class CartComponent {
   //icon
-  faTrash = faTrash ;
-  cartItem!: any[];
-  fare: number = 0;
-  total!:number;
-  fieldIndex!: { productId: string | number; orderQuantity: string | number; name: string | number; price: string | number; inventories: string | number; img: string | number; };
+  readonly faTrash = faTrash ;
+
+  protected cartItem!: any[];
+  protected fare: number = 0;
+  protected total!:number;
+  private fieldIndex!: { productId: string | number; orderQuantity: string | number; name: string | number; price: string | number; inventories: string | number; img: string | number; };
 
   constructor(public datasvc: DataService,private router: Router,){
 
@@ -53,13 +54,19 @@ export class CartComponent {
 
       }
     })
+
+    this.chkList();
   }
 
-  chkList(){
-    return this.cartItem?false:true;
+  protected chkList(){
+    // console.log('chkList',this.cartItem)
+    if(this.cartItem == undefined){
+      return true
+    }
+    return this.cartItem ? false : true;
   }
 
-  add(e: any){
+  protected add(e: any){
     //數量增加
     let counter = parseInt(e.target.value);
     counter++;
@@ -97,7 +104,7 @@ export class CartComponent {
   }
 
 
-  reduce(e: any){
+  protected reduce(e: any){
     //減少數量
     let counter = parseInt(e.target.value);
     counter--;
@@ -141,7 +148,7 @@ export class CartComponent {
 
 
   //直接變更數量
-  itemCountChange(e: any){
+  protected itemCountChange(e: any){
     //數量
     let counter = parseInt(e.target.value);
     console.log('itemCountChange',counter);
@@ -184,10 +191,10 @@ export class CartComponent {
 
 
   //刪除
-  deleteItem(e: any){
+  protected deleteItem(e: any){
     //產品ID
     let productId = e.target.id;
-    console.log('id',productId);
+    // console.log('id',productId);
     this.datasvc.deleteFromUserCart(productId).subscribe((re)=>{
       console.log('delete',re)
     })
@@ -226,7 +233,7 @@ export class CartComponent {
 
 
   //結帳
-  checkout(){
+  protected checkout(){
     this.datasvc.getUserCart().subscribe((data)=>{
 
       let batchItem = data.data.map((item: { [x: string]: any; })=>{

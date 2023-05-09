@@ -7,5 +7,5 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./success.component.css']
 })
 export class SuccessComponent {
-  faCheck = faCheck;
+  readonly faCheck = faCheck;
 }

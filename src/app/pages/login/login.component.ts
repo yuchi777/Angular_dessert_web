@@ -13,26 +13,26 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class LoginComponent {
   //icon
-  faUser = faUser;
-  faKey = faKey;
+  readonly faUser = faUser;
+  readonly faKey = faKey;
 
   //使用者input
-  username = localStorage.getItem('username');
-  myEmail = this.username ? this.username : "";
+  protected username = localStorage.getItem('username');
+  protected myEmail = this.username ? this.username : "";
   // myEmail = "admin";
 
   ////密碼input
   // password = localStorage.getItem('password');
-  myPassword = "";
+  protected myPassword = "";
   // myPassword = "123123";
 
   //記住我checkbox狀態
-  checkSet:boolean = false;
+  protected checkSet:boolean = false;
   //登入狀態
-  isLogin:boolean = false;
+  private isLogin:boolean = false;
 
-  regisUser: any;
-  RegisPsd:any;
+  protected regisUser: any;
+  protected RegisPsd:any;
 
 
 
@@ -47,7 +47,7 @@ export class LoginComponent {
 
 
 
-  rememberMe(){
+  protected rememberMe(){
     this.checkSet = ! this.checkSet;
     if(this.checkSet == true){
       console.log('記住我');
@@ -64,7 +64,7 @@ export class LoginComponent {
     // console.log('readloaclStorage',localStorage.getItem('password'));
   }
 
-  login(){
+  protected login(){
 
     this.datasvc.login({
       username : this.myEmail,
@@ -97,12 +97,12 @@ export class LoginComponent {
     })
   }
 
-  open(content: any) {
+  protected open(content: any) {
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
 	}
 
 
-  register(){
+  protected register(){
     this.datasvc.register(this.regisUser,this.RegisPsd).subscribe(()=>{
       alert('註冊成功');
       this.regisUser=''

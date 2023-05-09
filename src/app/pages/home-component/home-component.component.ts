@@ -9,13 +9,13 @@ import { DataService } from '../../data.service';
 })
 export class HomeComponentComponent {
 
-  faHeart = faHeart;
-  dataFeatured!: any[]
-  dataRecommend!: any[]
-  dataNewArrival!: any[]
-  counter: number = 1;
-  token = localStorage.getItem('token');
-  fieldIndex: any;
+  readonly faHeart = faHeart;
+  protected dataFeatured!: any[];
+  protected dataRecommend!: any[];
+  protected dataNewArrival!: any[];
+  private counter: number = 1;
+  private token = localStorage.getItem('token');
+  protected fieldIndex: any;
 
   // DI注入
   constructor(public datasvc: DataService) {
@@ -51,7 +51,7 @@ export class HomeComponentComponent {
 
   }
 
-  add(e: any) {
+  protected add(e: any) {
     if(!this.token){
       alert('請先登入')
     }else{

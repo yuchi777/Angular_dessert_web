@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-import { Api, DataService } from '../../data.service';
+import { DataService } from '../../data.service';
 
 
 @Component({
@@ -10,34 +10,34 @@ import { Api, DataService } from '../../data.service';
 })
 export class DessertComponent {
 
-  faCoffee = faCoffee;
-  counter: number = 1;
+  readonly faCoffee = faCoffee;
+  private counter: number = 1;
 
   //ALL
   // dataAllProduct!: any[];
   // dataAllProductLength!: number;
-  pageAll = 1;//當前頁面[(page)]
-  pageSizeAll = 6;//分頁內數量[pageSize]
+  protected pageAll = 1;//當前頁面[(page)]
+  protected pageSizeAll = 6;//分頁內數量[pageSize]
   // collectionSize 分頁集合中的項目數
 
   //all product
-  getAll = new Array();
-  getAllLength!: number;
+  // protected getAll = new Array();
+  // protected getAllLength!: number;
 
   //all product type
-  getAllType: any;
-  fieldIndex: any;
+  protected getAllType: any;
+  protected fieldIndex: any;
 
-  typeIdArr: { id: any; data: any; fieldIndex: any; chinese: any }[] = [];
-  typeId: any;
+  protected typeIdArr: { id: any; data: any; fieldIndex: any; chinese: any }[] = [];
+  protected typeId: any;
 
-  data: any[] = [];
-  dataId: any;
-  dataFieldIndex: any;
-  dataLabel: any;
+  protected data: any[] = [];
+  private dataId: any;
+  protected dataFieldIndex: any;
+  protected dataLabel: any;
 
-  getTotal: any[] = [];
-  token = localStorage.getItem('token');
+  protected getTotal: any[] = [];
+  private token = localStorage.getItem('token');
 
 
   // DI注入
@@ -112,7 +112,7 @@ export class DessertComponent {
 
 
   }
-  getAllData() {
+  protected getAllData() {
     this.data = [];
     console.log('this typeIdArr', this.typeIdArr);
     // console.log('this.getAllType',this.getAllType);
@@ -149,7 +149,7 @@ export class DessertComponent {
   }
 
 
-  getData(e: any) {
+  protected getData(e: any) {
     let id = e.target.id;
     // console.log('click id',id);
     // console.log('this newArr',this.typeIdArr)
@@ -182,7 +182,7 @@ export class DessertComponent {
 
 
 
-  add(e: any) {
+  protected add(e: any) {
     if(!this.token){
       alert('請先登入')
     }else{

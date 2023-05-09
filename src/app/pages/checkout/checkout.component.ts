@@ -4,12 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router'
 
 export class Delivery {
-  lastName!: string;
-  firstName!: string;
-  phoneNumber!: string;
-  city!: string;
-  region!: string;
-  address!: string;
+  public lastName!: string;
+  public firstName!: string;
+  public phoneNumber!: string;
+  public city!: string;
+  public region!: string;
+  public address!: string;
 
 }
 
@@ -20,13 +20,13 @@ export class Delivery {
 })
 export class CheckoutComponent {
 
-  cartItem!: any[];
-  fare: number = 100;
-  total!: number;
+  protected cartItem!: any[];
+  protected fare: number = 100;
+  protected total!: number;
 
-  form: FormGroup;
-  delivery = new Delivery();
-  fieldIndex!: { productId: string | number; orderQuantity: string | number; name: string | number; price: string | number; inventories: string | number; img: string | number; };
+  protected form: FormGroup;
+  protected delivery = new Delivery();
+  private fieldIndex!: { productId: string | number; orderQuantity: string | number; name: string | number; price: string | number; inventories: string | number; img: string | number; };
 
   constructor(
     public datasvc: DataService,
@@ -71,7 +71,7 @@ export class CheckoutComponent {
 
   }
 
-  submit(){
+  protected submit(){
     console.log('delivery Info',this.delivery);
     localStorage.setItem('receiverName',this.delivery.lastName + this.delivery.firstName)
     localStorage.setItem('receiverPhone',this.delivery.phoneNumber)

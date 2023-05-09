@@ -6,9 +6,8 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 export class Delivery {
-  invoice!: string;
-  email!: string;
-  companyNumber!: number;
+  public email!: string;
+  public companyNumber!: number;
 }
 
 @Component({
@@ -17,15 +16,15 @@ export class Delivery {
   styleUrls: ['./checkout2.component.css']
 })
 export class Checkout2Component {
-  faCheck = faCheck;
+  readonly faCheck = faCheck;
 
-  cartItem!: any[];
-  fare: number = 100;
-  total!: number;
-  form: FormGroup;
-  delivery = new Delivery();
-  item: boolean = true;
-  fieldIndex!: { productId: string | number; orderQuantity: string | number; name: string | number; price: string | number; inventories: string | number; img: string | number; };
+  protected cartItem!: any[];
+  protected fare: number = 100;
+  protected total!: number;
+  protected form: FormGroup;
+  protected delivery = new Delivery();
+  protected item: boolean = true;
+  private fieldIndex!: { productId: string | number; orderQuantity: string | number; name: string | number; price: string | number; inventories: string | number; img: string | number; };
 
   constructor(
     public datasvc: DataService,
@@ -62,13 +61,13 @@ export class Checkout2Component {
   }
 
   //發票種類切換
-  tabClick() {
+  protected tabClick() {
     this.item = !this.item;
   }
 
 
 
-  submit() {
+  protected submit() {
     // console.log('delivery Info', this.delivery);
 
 

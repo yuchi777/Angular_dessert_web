@@ -5,12 +5,12 @@ import { DataService } from '../../data.service';
 import { Router } from '@angular/router'
 
 export class Delivery{
-  cardNumber!:number;
-  lastName!:string;
-  firstName!:string;
-  month!:number;
-  year!:number;
-  code!:number
+  public cardNumber!:number;
+  public lastName!:string;
+  public firstName!:string;
+  public month!:number;
+  public year!:number;
+  public code!:number
 }
 
 @Component({
@@ -19,19 +19,19 @@ export class Delivery{
   styleUrls: ['./checkout1.component.css']
 })
 export class Checkout1Component {
-  faCheck = faCheck;
+  readonly faCheck = faCheck;
 
-  cartItem!: any[];
-  fare: number = 100; //運費
-  total!: number;
+  protected cartItem!: any[];
+  protected fare: number = 100; //運費
+  protected total!: number;
 
-  form: FormGroup;
-  delivery = new Delivery();
-  fieldIndex!: { productId: string | number; orderQuantity: string | number; name: string | number; price: string | number; inventories: string | number; img: string | number; };
+  protected form: FormGroup;
+  protected delivery = new Delivery();
+  private fieldIndex!: { productId: string | number; orderQuantity: string | number; name: string | number; price: string | number; inventories: string | number; img: string | number; };
 
   constructor(
     public datasvc: DataService,
-    fb: FormBuilder,
+    public fb: FormBuilder,
     private _router:Router,
 
   ){
@@ -71,8 +71,8 @@ export class Checkout1Component {
 
   }
 
-  submit(){
-    console.log('delivery Info',this.delivery);
+  protected submit(){
+    // console.log('delivery Info',this.delivery);
     this._router.navigate(['/checkout2']);
   }
 
