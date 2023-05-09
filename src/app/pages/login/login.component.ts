@@ -113,7 +113,7 @@ export class LoginComponent {
     },(error)=>{
       this.regisUser=''
       this.RegisPsd=''
-      alert('註冊錯誤, 請重新註冊');
+      alert('已有帳號, 請重新註冊');
     })
 
   }

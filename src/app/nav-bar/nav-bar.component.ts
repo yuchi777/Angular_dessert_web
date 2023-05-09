@@ -41,11 +41,10 @@ export class NavBarComponent {
     // const token_decode  = jwt_decode(this.token);
     // console.log('token_decode',token_decode)
 
-    // 訂閱 landRecord$
+    // 訂閱 userStatus$
     this.userStatusRxjs = this.datasvc.userStatus$.subscribe((re) => {
         // 更新狀態
         this.userStatus = re;
-        // console.log('landRecords',this.landRecords);
     });
 
 
@@ -63,10 +62,12 @@ export class NavBarComponent {
   // }
 
   logout(){
+    
     this.userStatus = false;
     localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+
     console.log('localStorage token 已清除');
-    this.router.navigate(['/login'])
     // window.location.reload();
   }
 
