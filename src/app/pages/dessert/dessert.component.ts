@@ -76,7 +76,7 @@ export class DessertComponent {
             "fieldIndex": data.fieldIndex,
             "chinese": []
           })
-          console.log('ngOnInit', this.typeIdArr)
+          // console.log('ngOnInit', this.typeIdArr)
 
           //所有甜點產品陣列(合併)
           // let allData: any[] = [];
@@ -100,6 +100,19 @@ export class DessertComponent {
             })
           })
           this.data = labelProducts;
+
+
+          // 所有甜點產品陣列(合併)含欄位名稱
+          let newLabelProducts = labelProducts.map((re)=>{
+            return {
+              "productId": re[this.dataFieldIndex.productId],
+              "name": re[this.dataFieldIndex.name],
+              "price": re[this.dataFieldIndex.price],
+              "inventories": re[this.dataFieldIndex.inventories],
+              "img": re[this.dataFieldIndex.img],
+              "types": re[this.dataFieldIndex.types],
+            }
+          })
 
           //本日精選
           // this.typeIdArr.forEach((data) => {
