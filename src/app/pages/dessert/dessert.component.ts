@@ -55,6 +55,7 @@ export class DessertComponent {
     this.datasvc.getProductsByType().subscribe((data) => {
       this.getAllType = data.data;
       this.fieldIndex = data.fieldIndex;
+
       //取ID typeId array
       this.typeId = this.getAllType.map((item: { [x: string]: any; }) => {
         return parseInt(item[this.fieldIndex.typeId])
@@ -63,12 +64,9 @@ export class DessertComponent {
 
       this.typeId.map((id: any) => {
         this.datasvc.getProductsByTypeId(id).subscribe((data) => {
-          // console.log('typeID map',id)
-          // console.log('typeID map',data.data)
 
           //欄位名稱
           this.dataFieldIndex = data.fieldIndex;
-
 
           //所有甜點產品陣列(分類)
           //設置空的typeIdArr
@@ -79,7 +77,6 @@ export class DessertComponent {
             "chinese": []
           })
           console.log('ngOnInit', this.typeIdArr)
-
 
           //所有甜點產品陣列(合併)
           // let allData: any[] = [];
@@ -103,7 +100,6 @@ export class DessertComponent {
             })
           })
           this.data = labelProducts;
-
 
           //本日精選
           // this.typeIdArr.forEach((data) => {
@@ -172,8 +168,7 @@ export class DessertComponent {
 
     // })
 
-    // console.log('data getAllData input', this.data)
-
+    console.log('data getAllData input', this.data)
   }
 
 
@@ -182,9 +177,6 @@ export class DessertComponent {
     // console.log('click id',id);
     // console.log('this newArr',this.typeIdArr)
 
-
-    // this.data = [];
-    // this.dataId = id;
     let labelProducts: any[][] = [];
     this.getAllType.forEach((type: any) => {
       if (type[this.fieldIndex.typeId] == id) {
@@ -198,15 +190,11 @@ export class DessertComponent {
           let arr = [...res, this.dataLabel ];
           labelProducts.push(arr);
         })
-        // this.data = data.data;
-        // this.dataId = data.id;
-        // this.dataFieldIndex = data.fieldIndex;
       }
 
     })
     this.data = labelProducts;
-    // console.log('getData',labelProducts)
-
+    console.log('getData',labelProducts)
   }
 
 
@@ -249,20 +237,20 @@ export class DessertComponent {
         //已經在購物車裡
         carData.forEach((e: any[]) => {
           if (e[fieldIndex.productId] == productId && e[fieldIndex.orderQuantity].length > 0) {
-            console.log('已經在購物車裡');
-            console.log('庫存', e[fieldIndex.inventories]);
-            console.log('已有產品數量', e[fieldIndex.orderQuantity]);
-            console.log('name', e[fieldIndex.name]);
+            // console.log('已經在購物車裡');
+            // console.log('庫存', e[fieldIndex.inventories]);
+            // console.log('已有產品數量', e[fieldIndex.orderQuantity]);
+            // console.log('name', e[fieldIndex.name]);
 
             //counter+已有數量
             this.counter = this.counter + parseInt(e[fieldIndex.orderQuantity]);
-            console.log('增加後數量', this.counter)
+            // console.log('增加後數量', this.counter)
 
             //新增購物車產品數量
             this.datasvc.addUserCart(productId, this.counter).subscribe((data: any) => {
               //counter打回去
               alert(`新增商品成功`)
-              console.log('addUserCart', data);
+              // console.log('addUserCart', data);
               this.counter = 1;
             },(error)=>{
               if(error.error.status == 400){
@@ -280,15 +268,15 @@ export class DessertComponent {
         let chkProductId = carData.every((e: any[]) => {
           return e[fieldIndex.productId] !== productId
         });
-        console.log('沒有在購物車裡', chkProductId);
+        // console.log('沒有在購物車裡', chkProductId);
 
         // 若無產品productId,chkProductId == true 新增新產品至購物車
         if (chkProductId) {
-          console.log('點選ID', productId);
+          // console.log('點選ID', productId);
 
           this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
             alert(`新增商品成功`)
-            console.log('addUserCart', data)
+            // console.log('addUserCart', data)
             this.counter = 1;
           },(error)=>{
             if(error.error.status == 400){

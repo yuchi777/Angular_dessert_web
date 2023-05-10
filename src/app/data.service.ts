@@ -1,4 +1,3 @@
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -34,6 +33,7 @@ export class DataService {
   }
 
 
+  //改成Login service 存放相關的登入狀態或登入資料
   // 提供訂閱服務 - userStatus
   // userStatus: BehaviorSubject<string> 做為狀態儲存，並且給定初值為空字串
   // 利用 asObservable() 將 BehaviosSubject 轉換成單純的"Observable"再賦值給 userStatus$
@@ -45,26 +45,18 @@ export class DataService {
     this.userStatus.next(value);
   }
 
+
+
+
   public getProductsByType(){
     return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getAllProductType',{})
   }
-
-
 
   // presale.money-link.com.tw
   // 'http://presale.money-link.com.tw/sweetApi/getProductsByTypeId',{ "typeId" : 2}
 
   public getProductsByTypeId(_typeId: any): Observable<Api> {
     return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getProductsByTypeId', { "typeId": _typeId });
-
-  }
-
-
-  public getAllProduct() {
-    // console.log('getAlltoken',this.token)
-    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getAllProduct', {
-      "token": this.adminToken
-    })
   }
 
   public login(_loginInfo: { username: any; password?: string; }) {
@@ -78,9 +70,6 @@ export class DataService {
 
   }
 
-
-
-
   public register(regisUser:any,password:any){
     return this.http.post('http://presale.money-link.com.tw/sweetApi/register',{
       "username" : regisUser,
@@ -88,14 +77,13 @@ export class DataService {
     })
   }
 
-
-
   public addUserCart(productId: number, counter: number) {
-    // const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     return this.http.post('http://presale.money-link.com.tw/sweetApi/addUserCart', {
-      "token": this.token,
+      "token": token,
       "productId": productId,
       // "orderQuantity":counter,
+      // "orderQuantity": 9999,
       "orderQuantity": 1,
     })
   }
@@ -128,13 +116,11 @@ export class DataService {
   //檢查庫存
   public batchUpdateUserCartQuantity(_checkProduct: { productId: number; orderQuantity: number }) {
     const token = localStorage.getItem('token');
-    console.log('_checkProduct', _checkProduct)
     return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/batchUpdateUserCart', {
       "token": token,
       "userCarts": _checkProduct
     })
   }
-
 
   public checkoutUserCart() {
     const token = localStorage.getItem('token');
@@ -146,6 +132,18 @@ export class DataService {
       "receiverName": receiverName,
       "receiverPhone": toreceiverPhoneken,
       "receiverAddress": receiverAddress
+    })
+  }
+
+
+
+
+
+
+  public getAllProduct() {
+    // console.log('getAlltoken',this.token)
+    return this.http.post<Api>('http://presale.money-link.com.tw/sweetApi/getAllProduct', {
+      "token": this.adminToken
     })
   }
 
