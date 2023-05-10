@@ -73,7 +73,7 @@ export class HomeComponentComponent {
         if( carData == undefined){
           console.log('getUserCart no Data')
           this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
-            alert(`新增商品ID.${productId}成功, 購物車有${this.counter}件`)
+            alert(`新增商品成功`)
             this.counter = 1;
           },(error)=>{
             if(error.error.status == 400){
@@ -98,7 +98,7 @@ export class HomeComponentComponent {
               //新增購物車產品數量
               this.datasvc.addUserCart(productId, this.counter).subscribe((data) => {
                 //counter打回去
-                alert(`新增成功商品成功`)
+                alert(`新增商品成功`)
                 console.log('addUserCart', data)
                 this.counter = 1;
               },(error)=>{

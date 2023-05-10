@@ -14,8 +14,8 @@ export class DessertComponent {
   private counter: number = 1;
 
   //ALL
-  // dataAllProduct!: any[];
-  // dataAllProductLength!: number;
+  // protected dataAllProduct!: any[];
+  // protected dataAllProductLength!: number;
   protected pageAll = 1;//當前頁面[(page)]
   protected pageSizeAll = 6;//分頁內數量[pageSize]
   // collectionSize 分頁集合中的項目數
@@ -26,6 +26,7 @@ export class DessertComponent {
 
   //all product type
   protected getAllType: any;
+  //甜點種類欄位名稱
   protected fieldIndex: any;
 
   protected typeIdArr: { id: any; data: any; fieldIndex: any; chinese: any }[] = [];
@@ -33,6 +34,8 @@ export class DessertComponent {
 
   protected data: any[] = [];
   private dataId: any;
+
+  //甜點產品欄位名稱
   protected dataFieldIndex: any;
   protected dataLabel: any;
 
@@ -53,7 +56,7 @@ export class DessertComponent {
       this.getAllType = data.data;
       this.fieldIndex = data.fieldIndex;
 
-      //type ID array
+      //取ID typeId array
       this.typeId = this.getAllType.map((item: { [x: string]: any; }) => {
         return parseInt(item[this.fieldIndex.typeId])
       })
@@ -63,6 +66,12 @@ export class DessertComponent {
         this.datasvc.getProductsByTypeId(id).subscribe((data) => {
           // console.log('typeID map',id)
           // console.log('typeID map',data.data)
+
+          //欄位名稱
+          this.dataFieldIndex = data.fieldIndex;
+
+
+          //所有甜點產品陣列(分類)
           //設置空的typeIdArr
           this.typeIdArr.push({
             "id": id,
@@ -70,15 +79,28 @@ export class DessertComponent {
             "fieldIndex": data.fieldIndex,
             "chinese": []
           })
+          console.log('ngOnInit', this.typeIdArr)
 
-          this.typeIdArr.forEach((data) => {
-            if (data.id == 1) {
-              // console.log('click data', data)
-              this.data = data.data;
-              this.dataId = data.id;
-              this.dataFieldIndex = data.fieldIndex;
-            }
+
+          //所有甜點產品陣列(合併)
+          let allData: any[] = [];
+          this.typeIdArr.forEach((data)=>{
+            data.data.forEach((res: any)=>{
+              allData.push(res);
+            })
+            return allData
           })
+          this.data = allData;
+          console.log('allData',allData)
+
+          //本日精選
+          // this.typeIdArr.forEach((data) => {
+          //   if (data.id == 1) {
+          //     this.data = data.data;
+          //     this.dataId = data.id;
+          //     this.dataFieldIndex = data.fieldIndex;
+          //   }
+          // })
 
         },(error)=>{
           console.log(error.error.message)
@@ -87,22 +109,12 @@ export class DessertComponent {
 
 
       this.getAllType.forEach((type: any) => {
-        // console.log(type[this.fieldIndex.typeId])
-        // console.log(type[this.fieldIndex.chinese])
         if (type[this.fieldIndex.typeId] == 1) {
           this.dataLabel = type[this.fieldIndex.chinese];
         }
       })
 
-
-
-
-
     })
-
-
-
-
 
     // this.datasvc.getAllProduct().subscribe((data) => {
     //   console.log('getAllProduct', data.data);
@@ -110,8 +122,10 @@ export class DessertComponent {
     //   this.dataAllProductLength = data.data.length;
     // })
 
-
   }
+
+
+
   protected getAllData() {
     this.data = [];
     console.log('this typeIdArr', this.typeIdArr);
@@ -123,9 +137,10 @@ export class DessertComponent {
       let chinese = this.getAllType.find((type: { [x: string]: any; }) => {
         return type[this.fieldIndex.typeId] == id
       })
-      // data.chinese = chinese;
+      data.chinese = chinese[1];
+
       data.data.forEach((element: any[]) => {
-        element.push(chinese)
+        element.push(chinese[1])
       });
 
       return data;
@@ -135,14 +150,13 @@ export class DessertComponent {
 
     // this.data = [];
     newArr.forEach((data) => {
-      // console.log('data1',data)
       data.data.forEach((data: any) => {
-        // console.log('data2',data)
-        // this.getTotal.push(data);
         this.data.push(data);
       })
 
     })
+
+    console.log('data getAllData input', this.data)
 
     // console.log('this.getTotal',this.getTotal)
 
@@ -152,7 +166,7 @@ export class DessertComponent {
   protected getData(e: any) {
     let id = e.target.id;
     // console.log('click id',id);
-    // console.log('this newArr',this.typeIdArr)
+    console.log('this newArr',this.typeIdArr)
 
 
     this.data = [];
@@ -177,6 +191,8 @@ export class DessertComponent {
       }
     })
     // console.log('click this data', this.data)
+
+    console.log('data getData input', this.data)
   }
 
 

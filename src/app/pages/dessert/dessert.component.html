@@ -12,20 +12,26 @@
         <div class="col-md-4">
           <div class="list-group text-center">
             <span class="dessert-list list-group-item list-group-item-action theme-1">甜點類別</span>
-            <!-- <div>
-              <span class="dessert-list list-group-item list-group-item-action nav-link active" data-bs-toggle="tab"
-                [attr.data-bs-target]="'#target-all'" id="alltype" (click)="getAllData()" role="tab">
+            <div>
+              <span
+              class="dessert-list list-group-item list-group-item-action nav-link active"
+              data-bs-toggle="tab"
+              [attr.data-bs-target]="'#target-all'"
+              id="alltype"
+              (click)="getAllData()"
+              role="tab">
                 所有種類
               </span>
-            </div> -->
+            </div>
 
             <div *ngFor="let item of getAllType">
+              <!-- [ngClass]="{active: item[fieldIndex.typeId] == 1}" -->
               <span
-              [ngClass]="{active: item[fieldIndex.typeId] == 1}"
               class="dessert-list list-group-item list-group-item-action nav-link"
               data-bs-toggle="tab"
               [attr.data-bs-target]="'#target-' + item[fieldIndex.typeId]" id="{{item[fieldIndex.typeId]}}"
-              (click)="getData($event)" role="tab">
+              (click)="getData($event)"
+              role="tab">
                 {{ item[fieldIndex.chinese] }}
               </span>
             </div>
