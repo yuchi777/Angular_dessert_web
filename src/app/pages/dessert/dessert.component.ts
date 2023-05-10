@@ -55,7 +55,6 @@ export class DessertComponent {
     this.datasvc.getProductsByType().subscribe((data) => {
       this.getAllType = data.data;
       this.fieldIndex = data.fieldIndex;
-
       //取ID typeId array
       this.typeId = this.getAllType.map((item: { [x: string]: any; }) => {
         return parseInt(item[this.fieldIndex.typeId])
@@ -83,15 +82,28 @@ export class DessertComponent {
 
 
           //所有甜點產品陣列(合併)
-          let allData: any[] = [];
-          this.typeIdArr.forEach((data)=>{
-            data.data.forEach((res: any)=>{
-              allData.push(res);
+          // let allData: any[] = [];
+          // this.typeIdArr.forEach((data)=>{
+          //   data.data.forEach((res: any)=>{
+          //     allData.push(res);
+          //   })
+          // })
+          // this.data = allData;
+          // console.log('allData',allData)
+
+          let labelProducts: any[][] = [];
+          this.getAllType.forEach((type: any) => {
+            this.typeIdArr.forEach((res)=>{
+              if(res.id == type[this.fieldIndex.typeId]){
+                res.data.forEach((res: any[])=>{
+                  let arr = [...res, type[this.fieldIndex.chinese] ];
+                  labelProducts.push(arr)
+                })
+              }
             })
-            return allData
           })
-          this.data = allData;
-          console.log('allData',allData)
+          this.data = labelProducts;
+
 
           //本日精選
           // this.typeIdArr.forEach((data) => {
@@ -115,50 +127,52 @@ export class DessertComponent {
       })
 
     })
-
-    // this.datasvc.getAllProduct().subscribe((data) => {
-    //   console.log('getAllProduct', data.data);
-    //   this.dataAllProduct = data.data;
-    //   this.dataAllProductLength = data.data.length;
-    // })
-
   }
 
 
 
   protected getAllData() {
-    this.data = [];
-    console.log('this typeIdArr', this.typeIdArr);
-    // console.log('this.getAllType',this.getAllType);
-
-    let newArr = this.typeIdArr.map((data) => {
-      let id = data.id
-      this.dataFieldIndex = data.fieldIndex
-      let chinese = this.getAllType.find((type: { [x: string]: any; }) => {
-        return type[this.fieldIndex.typeId] == id
-      })
-      data.chinese = chinese[1];
-
-      data.data.forEach((element: any[]) => {
-        element.push(chinese[1])
-      });
-
-      return data;
-    })
-
-    console.log('newArr', newArr)
-
+    let labelProducts: any[][] = [];
+          this.getAllType.forEach((type: any) => {
+            this.typeIdArr.forEach((res)=>{
+              if(res.id == type[this.fieldIndex.typeId]){
+                res.data.forEach((res: any[])=>{
+                  let arr = [...res, type[this.fieldIndex.chinese] ];
+                  labelProducts.push(arr)
+                })
+              }
+            })
+          })
+          this.data = labelProducts;
     // this.data = [];
-    newArr.forEach((data) => {
-      data.data.forEach((data: any) => {
-        this.data.push(data);
-      })
+    // console.log('this typeIdArr', this.typeIdArr);
 
-    })
+    // let newArr = this.typeIdArr.map((data) => {
+    //   let id = data.id
+    //   this.dataFieldIndex = data.fieldIndex
+    //   let chinese = this.getAllType.find((type: { [x: string]: any; }) => {
+    //     return type[this.fieldIndex.typeId] == id
+    //   })
+    //   data.chinese = chinese[1];
 
-    console.log('data getAllData input', this.data)
+    //   data.data.forEach((element: any[]) => {
+    //     element.push(chinese[1])
+    //   });
 
-    // console.log('this.getTotal',this.getTotal)
+    //   return data;
+    // })
+
+    // console.log('newArr', newArr)
+
+    // // this.data = [];
+    // newArr.forEach((data) => {
+    //   data.data.forEach((data: any) => {
+    //     this.data.push(data);
+    //   })
+
+    // })
+
+    // console.log('data getAllData input', this.data)
 
   }
 
@@ -166,33 +180,33 @@ export class DessertComponent {
   protected getData(e: any) {
     let id = e.target.id;
     // console.log('click id',id);
-    console.log('this newArr',this.typeIdArr)
+    // console.log('this newArr',this.typeIdArr)
 
 
-    this.data = [];
-    this.dataId = id;
-
-
+    // this.data = [];
+    // this.dataId = id;
+    let labelProducts: any[][] = [];
     this.getAllType.forEach((type: any) => {
-      // console.log(type[this.fieldIndex.typeId])
-      // console.log(type[this.fieldIndex.chinese])
       if (type[this.fieldIndex.typeId] == id) {
         this.dataLabel = type[this.fieldIndex.chinese];
       }
     })
 
-
     this.typeIdArr.forEach((data) => {
       if (data.id == id) {
-        // console.log('click data', data)
-        this.data = data.data;
-        this.dataId = data.id;
-        this.dataFieldIndex = data.fieldIndex;
+        data.data.forEach((res: any)=>{
+          let arr = [...res, this.dataLabel ];
+          labelProducts.push(arr);
+        })
+        // this.data = data.data;
+        // this.dataId = data.id;
+        // this.dataFieldIndex = data.fieldIndex;
       }
-    })
-    // console.log('click this data', this.data)
 
-    console.log('data getData input', this.data)
+    })
+    this.data = labelProducts;
+    // console.log('getData',labelProducts)
+
   }
 
 

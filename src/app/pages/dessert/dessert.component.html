@@ -47,7 +47,7 @@
                 *ngFor="let item of data | slice: (pageAll-1) * pageSizeAll : (pageAll-1) * pageSizeAll + pageSizeAll"
                  role="tabpanel">
                 <img src="data:image/jpg;base64,{{item[dataFieldIndex.img]}}" class="card-img-top cardImg">
-                <span class="tag">{{dataLabel}}</span>
+                <span class="tag">{{item[6]}}</span>
                 <!-- <span class="tag" *ngIf="item[6][1]; else anotherLabel">{{item[6][1]}}</span>
                 <ng-template #anotherLabel>
                   <span class="tag">{{dataLabel}}</span>
