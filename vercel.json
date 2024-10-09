@@ -1,9 +1,0 @@
-{
-  "routes": [
-    {
-      "src": "/sweetApi/(.*)",
-      "dest": "http://presale.money-link.com.tw/:path*",
-      "methods": ["GET", "POST", "PUT", "DELETE"]
-    }
-  ]
-}
